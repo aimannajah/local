@@ -1,0 +1,91 @@
+<html>
+    <script src="/experience.js"></script> 
+<body>
+<p><h2>Add Experience</h2></p>
+<form action="/add-experience" method="get" target="_blank">
+  <p>Location</p>
+  <select>
+   <option>Select Country</option>
+  <select>
+
+ <select>
+   <option>Select State</option>
+  <select>
+
+ <select>
+   <option>Select City</option>
+  <select>
+  
+  <p>Activity Name: 
+      <input type="text", id="name"></input>
+  </p>
+  <p>Description:</p>
+      <p><textarea id="description", rows="10", cols="36"></textarea></p>
+  <p>Time: </p>
+  <p>Start
+   <select>
+  <option>Select Time</option>
+  </select></p>
+ <p>End
+   <select>
+       <option>Select Time</option>
+ </select></p>
+  <p>Category: <br>
+  <select>
+  <option>Select Option</option>
+  <option value="adventure">Adventure</option>
+  <option value="relax">Relaxation</option>
+  <option value="culture">Culture</option>
+ </select>
+  </p>
+  
+  <p>Estimated Price: </p>
+  
+<p>Use the slider to increment or decrement value.</p> 
+  
+<div class="rangeslider"> 
+  <input type="range" min="1" max="100" value="10"
+                  class="myslider" id="sliderRange"> 
+  <p>Value: <span id="number"></span></p> 
+</div> 
+  
+<script> 
+let rangeslider = document.getElementById("sliderRange"); 
+let output = document.getElementById("number"); 
+output.innerHTML = rangeslider.value; 
+  
+rangeslider.oninput = function() { 
+  output.innerHTML = this.value; 
+} 
+</script> 
+
+<button>Submit Experience</button> 
+</form>
+</body>
+<style> 
+
+
+.rangeslider{ 
+    width: 50%; 
+} 
+  
+.myslider { 
+    background: orange ; 
+    width: 50%; 
+    height: 20px; 
+   } 
+  
+.myslider:-webkit-slider-thumb { 
+    cursor: pointer; 
+    background: #34495E  ; 
+    width: 5%; 
+    height: 20px; 
+} 
+  
+.myslider:hover { 
+    opacity: 1; 
+} 
+  
+</style> 
+
+</html>
