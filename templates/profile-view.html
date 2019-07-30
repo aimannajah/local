@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% if profile_save %}
+<h1> Profile saved! </h1>
+{% endif %}
+
 <h1> Hello {{firstname}} {{lastname}}</h1>
 <h2> Welcome to Local, a platform meant to bridge travellers and locals around the world to experience the hidden gems of the world! </h2>
 <h3> Your Profile </h3>
@@ -9,7 +13,7 @@
     Email: {{email}} <br><br>
     Address: {{address}} <br><br>
     City: {{city}} <br><br>
-    City: {{state}} <br><br>
+    State: {{state}} <br><br>
     Zip Code:{{zipcode}} <br><br>
     Country:{{country}} <br><br>
     Current Role: {{role}} <br><br>

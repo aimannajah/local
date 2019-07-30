@@ -2,8 +2,8 @@ from socialmodels import UserProfile
 from socialmodels import Experience
 
 def save_profile(firstname, lastname, email, address, city, state, zipcode, country, role):
-    p = get_user_profile
-    if not p:
+    p = get_user_profile(email)
+    if p is not None:
         p.firstname = firstname
         p.lastname = lastname
         p.email = email
@@ -15,6 +15,7 @@ def save_profile(firstname, lastname, email, address, city, state, zipcode, coun
         p.role = role
     else:
         p = UserProfile(firstname = firstname, lastname = lastname, email = email, address = address, city = city, state = state, zipcode = zipcode, country = country, role = role)
+    print(p)
     p.put()
 
 def get_user_profile(email):
