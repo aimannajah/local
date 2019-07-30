@@ -2,12 +2,9 @@ import datetime
 import logging
 import os
 import webapp2
-
 from google.appengine.api import images
 from google.appengine.api import users
-from google.appengine.ext import blobstore
 from google.appengine.ext import ndb
-from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.ext.webapp import template
 import socialdata
 
@@ -26,9 +23,11 @@ def get_user_email():
 
 def get_template_parameters():
     values = {}
-    if get_user_email():
+    email = get_user_email()
+    if email:
+        values['Traveller'] = socialdata.is_traveller(email)
+        values['Local'] = socialdata.is_local(email)
         values['logout_url'] = users.create_logout_url('/')
-        values['upload_url'] = blobstore.create_upload_url('/upload')
     else: 
         values['login_url'] = users.create_login_url('/')
     return values
@@ -43,7 +42,8 @@ def get_experience_name():
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         values = get_template_parameters()
-        values['local'] = False
+        values['Local'] = False
+        values['experiences'] = True
         if get_user_email():
             profile = socialdata.get_user_profile(get_user_email())
             if profile:
@@ -57,10 +57,10 @@ class MainHandler(webapp2.RequestHandler):
                 values['country'] = profile.country
                 values['role'] = profile.role
                 print(profile.role)
-                if values['role'] == 'local':
-                    values['local'] = True
-            else:
-                self.redirect('/profile-edit')
+                if values['role'] == 'Local':
+                    values['Local'] = True
+            # else:
+            #     self.redirect('/profile-edit')
         render_template(self, 'mainpage.html', values)
 
 class ProfileEditHandler(webapp2.RequestHandler):
@@ -70,6 +70,8 @@ class ProfileEditHandler(webapp2.RequestHandler):
         else: 
             values = get_template_parameters()
             profile = socialdata.get_user_profile(get_user_email())
+            print('\n \n profile \n \n') 
+            print(profile)
             if profile:
                 values['firstname'] = profile.firstname
                 values['lastname'] = profile.lastname
@@ -80,6 +82,7 @@ class ProfileEditHandler(webapp2.RequestHandler):
                 values['zipcode'] = profile.zipcode
                 values['country'] = profile.country
                 values['role'] = profile.role
+                print('\n \n hello \n \n \n')
             render_template(self, 'profile-edit.html', values)
 
 
@@ -99,18 +102,19 @@ class ProfileSaveHandler(webapp2.RequestHandler):
             state = self.request.get('state')
             zipcode = self.request.get('zipcode')
             country = self.request.get('country')
-            role = self.request.get('type')
-            role = self.request.get('role') 
+            role = self.request.get('role')
 
             values = get_template_parameters()
             values['firstname'] = firstname
             values['lastname'] = lastname
             print('email ' + email)
+
             if error_text:
                 values = get_template_parameters()
             else:
                 socialdata.save_profile(firstname, lastname, email, address, city, state, zipcode, country, role)
                 values['successmsg'] = 'Your profile edits have been saved'
+                print(email)
             self.redirect('/profile-view')
             #self.redirect('/profile-view?save=true')
 
@@ -142,102 +146,52 @@ class ProfileListHandler(webapp2.RequestHandler):
         values = get_template_parameters()
         values['profiles'] = profiles
         render_template(self, 'profile-list.html', values)
-        
-# class FileUploadHandler(blobstore_handlers.BloclstoreUploadHandler):
-#     def post(self):
-#         params = get_template_parameters()
-
-#         if params['user']:
-#             upload_files = self.get_uploads()
-#             blob_info = upload_files[0]
-#             type = blob_info.content_type
-
-#         if type in ['image/jpeg', 'image/png', 'image/gif', 'image/webp']:
-#             name = self.request.get('name')
-#             my_image = MyImage()
-#             my_image.name = name
-#             my_image.user = params['user']
-
-#             my_image.image = blob_info.key()
-#             my_image.put()
-#             image_id = my_image.key.urlsafe()
-#             self.redirect('/image?id=' + image_id)
-
-# class ImageHandler(webapp2.RequestHandler):
-#     def get(self):
-#         params = get_params()
-#         image_id = self.request.get('id')
-#         my_image = ndb.Key(urlsafe=image_id).get()
-#         params['image_id'] = image_id
-#         params['image_name'] = my_image.name
-#         render_template(self, 'image.html', params)
-        
-# class ImageManipulationHandler(webapp2.RequestHandler):
-#     def get(self):
-
-#         image_id = self.request.get("id")
-#         my_image = ndb.Key(urlsafe=image_id).get()
-#         blob_key = my_image.image
-#         img = images.Image(blob_key=blob_key)
-
-#         modified = False
-
-#         h = self.request.get('height')
-#         w = self.request.get('width')
-#         fit = False
-
-#         if self.request.get('fit'):
-#             fit = True
-
-#         if h and w:
-#             img.resize(width=int(w), height=int(h), crop_to_fit=fit)
-#             modified = True
-
-#         optimize = self.request.get('opt')
-#         if optimize:
-#             img.im_feeling_lucky()
-#             modified = True
-
-#         flip = self.request.get('flip')
-#         if flip:
-#             img.vertical_flip()
-#             modified = True
-
-#         mirror = self.request.get('mirror')
-#         if mirror:
-#             img.horizontal_flip()
-#             modified = True
-
-#         rotate = self.request.get('rotate')
-#         if rotate:
-#             img.rotate(int(rotate))
-#             modified = True
-
-#         result = img
-#         if modified:
-#             result = img.execute_transforms(output_encoding=images.JPEG)
-
-#         self.response.headers['Content-Type'] = 'image/jpeg'
-#         self.response.out.write(result)
-
-# class MyImage(ndb.Model):
-#     name = ndb.StringProperty()
-#     image = ndb.BlobKeyProperty()
-#     user = ndb.StringProperty()
     
 class CreateExperienceHandler(webapp2.RequestHandler):
     def get(self):
-        if not show_experience
-        render_template(self, 'add-experience.html', {})
+        values = get_template_parameters()
+        values['experiences'] = True
+        if not get_user_email():
+            self.redirect('/')
+        else:
+            render_template(self, 'create-experience.html', values)
+
+class SaveExperienceHandler(webapp2.RequestHandler):
+    def post(self):
+        email = get_user_email()
+        if not email:
+            self.redirect('/')
+        else:
+            city = self.request.get('city')
+            state = self.request.get('state')
+            experiencename = self.request.get('experiencename')
+            description = self.request.get('description')
+            starttime = self.request.get('starttime')
+            endtime = self.request.get('endtime')
+            category = self.request.get('category')
+            price = self.request.get('price')
+            socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
+            print(description)
+        render_template(self, 'create-experience.html', {})
+
+class ErrorHandler(webapp2.RequestHandler):
+    def get(self):
+        self.response.out.write("nothing mapped there (get).")
+    def post(self):
+        self.response.out.write('nothing mapped there (post).')
+
+# class ExperiencesHandler(webapp2.RequestHandler):
+#     def get(self):
+#         city = self.request.get('city')
+#     re
 
 app = webapp2.WSGIApplication([
     ('/profile-view', ProfileViewHandler),
     ('/profile-save', ProfileSaveHandler),
     ('/profile-edit', ProfileEditHandler),
-    # ('/images', ImageHandler),
-    # ('/image', ImageHandler),
-    # ('/upload', FileUploadHandler),
-    # ('/img', ImageManipulationHandler),
+    # ('/experiences', ExperiencesHandler),
     ('/experiences/create', CreateExperienceHandler),
-    ('/.*', MainHandler)
+    ('/experiences/save', SaveExperienceHandler),
+    ('/', MainHandler),
+    # ('.*', ErrorHandler),
 ])

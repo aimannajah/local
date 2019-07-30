@@ -14,10 +14,10 @@
     }
     </style>
     </head>
-    <body>  <center>
+    <body> 
         <h1> Local </h1>
         <div id='topmenu'>
-            <a href='/'>Home</a>
+            <a href='/.*'>Home</a>
             {% if login_url %}
             <a href='{{login_url}}'>Sign In</a>
             {% else %}
@@ -25,19 +25,19 @@
             {% if viewprofile %}
             <a href='/profile-edit'>Edit Profile</a>
             {% endif %}
-            {% if role == 'Local' %}
-            <a href='experiences'>Experiences</a>
-            {% endif %}
+            {% if Local %}
+            <a href='/experiences'>Experiences</a>
             {% if experiences %}
             <a href='/experiences/manage'>Manage Experiences</a>
             <a href='/experiences/create'>Create an Experience</a>
             <a href='/experiences/future'>Future Experiences</a>
             {% endif %}
-            {% if role == 'Traveller' %}
-            <a href='experiences'>Experiences</a>
             {% endif %}
+            {% if Traveller %}
+            <a href='experiences'>Experiences</a>
             {% if experiences %}
             <a href='/experiences/future'>Future Experiences</a>
+            {% endif %}
             {% endif %}
             <a href='{{logout_url}}'>Sign Out</a> 
             {% endif %}
@@ -50,5 +50,5 @@
         <div id='errormsg'>{{errormsg}}</div>
         {% endif %}
             {% block content %}{% endblock %}
-    </center></body>
+</body>
 </html>
