@@ -9,7 +9,7 @@
     Email:<br>
     <input type='text' name='email' value='{{email}}'><br><br>
     Confirm Email:<br>
-    <input type='text' name='confirmemail' value='{{confirmemail}}'><br><br>
+    <input type='text' name='confirmemail' value='{{email}}'><br><br>
     Address:<br>
     <input type='text' name='address' value='{{address}}'><br><br>
     City:<br>
@@ -325,11 +325,11 @@
 
     <div class='role'>
         <p> Are you a traveller or a local? <p>
-        <input type="radio" name="type" value="local"> Local<br>
-        <input type="radio" name="type" value="traveller"> Traveller<br>
+        <input type="radio" name="role" value="Local"> Local<br>
+        <input type="radio" name="role" value="Traveller"> Traveller<br>
     </div>
 
-    <input type='submit'>
+    <input type='submit' value='Save Profile'>
 </form>
 
 {% endblock %}

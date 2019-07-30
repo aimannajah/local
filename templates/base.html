@@ -25,8 +25,19 @@
             {% if viewprofile %}
             <a href='/profile-edit'>Edit Profile</a>
             {% endif %}
-            {% if local %}
+            {% if role == 'Local' %}
+            <a href='experiences'>Experiences</a>
+            {% endif %}
+            {% if experiences %}
             <a href='/experiences/manage'>Manage Experiences</a>
+            <a href='/experiences/create'>Create an Experience</a>
+            <a href='/experiences/future'>Future Experiences</a>
+            {% endif %}
+            {% if role == 'Traveller' %}
+            <a href='experiences'>Experiences</a>
+            {% endif %}
+            {% if experiences %}
+            <a href='/experiences/future'>Future Experiences</a>
             {% endif %}
             <a href='{{logout_url}}'>Sign Out</a> 
             {% endif %}
