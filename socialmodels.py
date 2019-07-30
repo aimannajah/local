@@ -11,4 +11,15 @@ class UserProfile(ndb.Model):
     zipcode = ndb.StringProperty()
     country = ndb.StringProperty()
     role = ndb.StringProperty()
+    image = ndb.BlobKeyProperty()
     last_update = ndb.DateTimeProperty(auto_now=True)
+
+class Experience(ndb.Model):
+    location = ndb.StringProperty()
+    experiencename = ndb.StringProperty()
+    description = ndb.TextProperty()
+    starttime = ndb.StringProperty()
+    endtime = ndb.StringProperty()
+    category = ndb.StringProperty()
+    price = ndb.StringProperty()
+    latestpost = ndb.DateTimeProperty(auto_now=True)
