@@ -1,0 +1,38 @@
+<<<<<<< HEAD
+=======
+ .zeusi {
+        width: 50%;
+        height: 50%;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+body {
+    font-family: Helvetica, sans-serif;
+    font-size: 20pt;
+}
+
+a { 
+    text-decoration: underline;
+    color: blue;
+    padding-left: 10px;
+}
+
+a:hover{
+    text-decoration: none;
+    color: black;
+}
+
+#topmenu {
+    padding-bottom: 10px;
+}
+
+#successmsg {
+    font-weight: bold;
+    color: blue;
+}
+
+#errormsg {
+    font-weight: bold;
+    color: red;
+}
+>>>>>>> b61ec3d6f4b6701340524f49240e3a6a29922e8b

@@ -1,0 +1,43 @@
+<html>
+    <head>
+          <link rel='stylesheet' href='/static/styles.css'>
+              <link rel='icon' href='http://www.iconarchive.com/download/i103437/paomedia/small-n-flat/lightning.ico'>
+<style>
+    #topmenu {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 20px;
+    }
+    h1 {
+        font-size: 80px;
+    }
+    </style>
+    </head>
+    <body>  <center>
+        <h1> Local </h1>
+        <div id='topmenu'>
+            <a href='/'>Home</a>
+            {% if login_url %}
+            <a href='{{login_url}}'>Sign In</a>
+            {% else %}
+            <a href='/profile-view'> View Profile</a>
+            {% if viewprofile %}
+            <a href='/profile-edit'>Edit Profile</a>
+            {% endif %}
+            {% if local %}
+            <a href='/experiences/manage'>Manage Experiences</a>
+            {% endif %}
+            <a href='{{logout_url}}'>Sign Out</a> 
+            {% endif %}
+            <hr>
+        </div>
+        {% if successmsg %}
+        <div id='successmsg'>{{successmsg}}</div>
+        {% endif %}
+        {% if errormsg %}
+        <div id='errormsg'>{{errormsg}}</div>
+        {% endif %}
+            {% block content %}{% endblock %}
+    </center></body>
+</html>
