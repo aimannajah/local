@@ -10,6 +10,8 @@ from google.appengine.ext import ndb
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.ext.webapp import template
 import socialdata
+from selenium import webdriver
+from google.appengine.api import mail
 
 messages = []
 
@@ -114,6 +116,7 @@ class ProfileSaveHandler(webapp2.RequestHandler):
             self.redirect('/profile-view')
             #self.redirect('/profile-view?save=true')
 
+
 class ProfileViewHandler(webapp2.RequestHandler):
     def get(self):
         profile = socialdata.get_profile_by_email(get_user_email())
@@ -136,108 +139,28 @@ class ProfileViewHandler(webapp2.RequestHandler):
         print(values)
         render_template(self, 'profile-view.html', values)
 
+
 class ProfileListHandler(webapp2.RequestHandler):
     def get(self):
         profiles = socialdata.get_recent_profiles()
         values = get_template_parameters()
         values['profiles'] = profiles
         render_template(self, 'profile-list.html', values)
-        
-# class FileUploadHandler(blobstore_handlers.BloclstoreUploadHandler):
-#     def post(self):
-#         params = get_template_parameters()
 
-#         if params['user']:
-#             upload_files = self.get_uploads()
-#             blob_info = upload_files[0]
-#             type = blob_info.content_type
 
-#         if type in ['image/jpeg', 'image/png', 'image/gif', 'image/webp']:
-#             name = self.request.get('name')
-#             my_image = MyImage()
-#             my_image.name = name
-#             my_image.user = params['user']
 
-#             my_image.image = blob_info.key()
-#             my_image.put()
-#             image_id = my_image.key.urlsafe()
-#             self.redirect('/image?id=' + image_id)
 
-# class ImageHandler(webapp2.RequestHandler):
-#     def get(self):
-#         params = get_params()
-#         image_id = self.request.get('id')
-#         my_image = ndb.Key(urlsafe=image_id).get()
-#         params['image_id'] = image_id
-#         params['image_name'] = my_image.name
-#         render_template(self, 'image.html', params)
-        
-# class ImageManipulationHandler(webapp2.RequestHandler):
-#     def get(self):
 
-#         image_id = self.request.get("id")
-#         my_image = ndb.Key(urlsafe=image_id).get()
-#         blob_key = my_image.image
-#         img = images.Image(blob_key=blob_key)
-
-#         modified = False
-
-#         h = self.request.get('height')
-#         w = self.request.get('width')
-#         fit = False
-
-#         if self.request.get('fit'):
-#             fit = True
-
-#         if h and w:
-#             img.resize(width=int(w), height=int(h), crop_to_fit=fit)
-#             modified = True
-
-#         optimize = self.request.get('opt')
-#         if optimize:
-#             img.im_feeling_lucky()
-#             modified = True
-
-#         flip = self.request.get('flip')
-#         if flip:
-#             img.vertical_flip()
-#             modified = True
-
-#         mirror = self.request.get('mirror')
-#         if mirror:
-#             img.horizontal_flip()
-#             modified = True
-
-#         rotate = self.request.get('rotate')
-#         if rotate:
-#             img.rotate(int(rotate))
-#             modified = True
-
-#         result = img
-#         if modified:
-#             result = img.execute_transforms(output_encoding=images.JPEG)
-
-#         self.response.headers['Content-Type'] = 'image/jpeg'
-#         self.response.out.write(result)
-
-# class MyImage(ndb.Model):
-#     name = ndb.StringProperty()
-#     image = ndb.BlobKeyProperty()
-#     user = ndb.StringProperty()
-    
 class CreateExperienceHandler(webapp2.RequestHandler):
     def get(self):
-        if not show_experience
-        render_template(self, 'add-experience.html', {})
+        if not show_experience:
+            render_template(self, 'add-experience.html', {})
 
 app = webapp2.WSGIApplication([
     ('/profile-view', ProfileViewHandler),
     ('/profile-save', ProfileSaveHandler),
     ('/profile-edit', ProfileEditHandler),
-    # ('/images', ImageHandler),
-    # ('/image', ImageHandler),
-    # ('/upload', FileUploadHandler),
-    # ('/img', ImageManipulationHandler),
+    ('/send-contact', FormHandler)
     ('/experiences/create', CreateExperienceHandler),
     ('/.*', MainHandler)
 ])
