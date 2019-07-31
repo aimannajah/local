@@ -1,3 +1,10 @@
+import datetime
+import logging
+import os
+import webapp2
+
+from google.appengine.api import mail
+from google.appengine.ext.webapp import template
 from google.appengine.ext import ndb
 
 
@@ -7,6 +14,7 @@ class UserRequests(ndb.Model):
     email = ndb.StringProperty()
     experience = ndb.StringProperty(required=True)
     active = ndb.BooleanProperty(default=True)
+
 
 class RequestExperienceHandler(webapp2.RequestHandler):
 

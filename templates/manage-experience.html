@@ -5,7 +5,7 @@
     <script src="/experience.js"></script> 
 <body>
 <form action="/experiences/save" method="post"> 
-<p><h2>Add Experience</h2></p>
+<p><h2>Edit Experience</h2></p>
   <p>Location
  <select name='state'>
     <option>Select State</option>
@@ -84,62 +84,10 @@
  </select>
   </p>
   
-<<<<<<< HEAD
   <p> Estimated Price: <input type='text', name='price'></input></p>
 
 <button><p>Submit Experience</button></p>
-=======
-  <p>Estimated Price: </p>
-  
-<p>Use the slider to increment or decrement value.</p> 
-  
-<div class="rangeslider"> 
-  <input type="range" min="0" max="500" id="sliderRange" name='price'> 
-  <p>Value: $<span id="number"></span></p> 
-</div> 
-
-<script> 
-let rangeslider = document.getElementById("sliderRange"); 
-let output = document.getElementById("number"); 
-output.innerHTML = rangeslider.value; 
-  
-rangeslider.oninput = function() { 
-  output.innerHTML = this.value; 
-} 
-</script> 
-
-<button onclick="alert('Experience has been submitted!')"> Submit Experience</button> 
->>>>>>> 5341ff907ccb42dc6872f8b588d917c781a968d2
 </form>
 </body>
-<style> 
 
-form {
-    text-align: center;
-}
-
-.rangeslider{ 
-    width: 50%; 
-} 
-  
-.myslider { 
-    background: orange ; 
-    width: 50%; 
-    height: 20px; 
-   } 
-  
-.myslider:-webkit-slider-thumb { 
-    cursor: pointer; 
-    background: #34495E  ; 
-    width: 5%; 
-    height: 20px; 
-} 
-  
-.myslider:hover { 
-    opacity: 1; 
-} 
-  
-</style> 
-
-</html>
 {% endblock %}

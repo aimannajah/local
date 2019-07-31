@@ -1,20 +1,31 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
+<<<<<<< HEAD
 
+=======
+<style>
+    .boxed{
+    border: 1px solid green ;
+    }
+    </style>
 <body>
+>>>>>>> 5341ff907ccb42dc6872f8b588d917c781a968d2
 {% for experience in experiences %}
+<div class='boxed'>
 Experience Name:
-    {{experience[0]}} <br> 
+    {{experience.experiencename}} <br> 
     <!-- this hard codes the changes, so if you wanted to add more information to experience view, you must change it in socialdata and then add price -->
     <!-- add button tag inside this for loop so that it may be applied everytime -->
 Experience City:
-    {{experience[1]}} <br>
+    {{experience.city}} <br>
 Experience State:
-    {{experience[2]}} <br>
+    {{experience.state}} <br>
 Experience Descripton:
-    {{experience[3]}} <br>
-    <br>
-    <br>
+    {{experience.description}} <br>
+Experience Price:
+    {{experience.price}} <br>
+    <button type="button" onclick="alert('Request to join epxerience has been sent!')">Join Experience!</button>
+    </div>
 {% endfor %}   
- </body>
+
 {% endblock %}

@@ -47,18 +47,19 @@ def show_experience(city):
     results = q.fetch()
     experiences = []
     for experience in results:
-        experienceinfo = []
-        experienceinfo.append(experience.experiencename)
-        experienceinfo.append(experience.city)
-        experienceinfo.append(experience.state)
-        experienceinfo.append(experience.description)
-        experiences.append(experienceinfo)
+        experiences.append(experience)
         # hard coded at view-experience.html
         # to enter more info, append the necessary information
     return experiences
-
+<<<<<<< HEAD
+    
 def save_experience(city, state, experiencename, description, starttime, endtime, category, price):
     p = Experience(city = city, state = state, experiencename = experiencename, description = description, starttime = starttime, endtime = endtime, category = category, price = price)
+=======
+
+def save_experience(city, state, experiencename, description, starttime, endtime, category, price, email):
+    p = Experience(city = city, state = state, experiencename = experiencename, description = description, starttime = starttime, endtime = endtime, category = category, price = price, email = email)
+>>>>>>> 5341ff907ccb42dc6872f8b588d917c781a968d2
     p.put()
 
 def get_profile_by_email(email):
