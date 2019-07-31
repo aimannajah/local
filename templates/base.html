@@ -1,7 +1,8 @@
 <html>
     <head>
-          <link rel='stylesheet' href='/static/styles.css'>
-              <link rel='icon' href='http://www.iconarchive.com/download/i103437/paomedia/small-n-flat/lightning.ico'>
+    <link rel='stylesheet' href='/static/styles.css'>
+    <link rel='icon' href='/CSSI/localicon.ico'>
+
 <style>
     #topmenu {
         position: absolute;
@@ -12,25 +13,66 @@
     h1 {
         font-size: 80px;
     }
+    .dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    }
+
+    .dropdown {
+    position: relative;
+    display: inline-block;
+    }
+
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    }
+
+    .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    }
+
+    .dropdown-content a:hover {background-color: #ddd;}
+
+    .dropdown:hover .dropdown-content {display: block;}
+
+    .dropdown:hover .dropbtn {background-color: #3e8e41;}
     </style>
+
     </head>
     <body> 
         <h1> Local </h1>
         <div id='topmenu'>
-            <a href='/.*'>Home</a>
+            <a href='/*'>Home</a>
+            <a href='/searchexperience'>Search for an Experience</a>
             {% if login_url %}
             <a href='{{login_url}}'>Sign In</a>
             {% else %}
-            <a href='/profile-view'> View Profile</a>
-            {% if viewprofile %}
-            <a href='/profile-edit'>Edit Profile</a>
-            {% endif %}
+            <div class='dropdown'> <button class='dropbtn'>Profile</button>
+                <div class='dropdown-content'>
+                    <a href='/profile-view'> View Profile</a>
+                    {% if viewprofile %}
+                    <a href='/profile-edit'>Edit Profile</a>
+                     {% endif %}
+                     </div>
             {% if Local %}
-            <a href='/experiences'>Experiences</a>
+            <div class='dropdown'> <button class='dropbtn'>Experiences</button>
             {% if experiences %}
-            <a href='/experiences/manage'>Manage Experiences</a>
-            <a href='/experiences/create'>Create an Experience</a>
-            <a href='/experiences/future'>Future Experiences</a>
+            <div class='dropdown-content'>
+                <a href='/experiences/manage'>Manage Experiences</a>
+                <a href='/experiences/create'>Create an Experience</a>
+                <a href='/experiences/future'>Future Experiences</a>
+            </div>
             {% endif %}
             {% endif %}
             {% if Traveller %}

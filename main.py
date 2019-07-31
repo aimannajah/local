@@ -2,6 +2,7 @@ import datetime
 import logging
 import os
 import webapp2
+import jinja2
 from google.appengine.api import images
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -9,6 +10,12 @@ from google.appengine.ext.webapp import template
 import socialdata
 
 messages = []
+
+the_jinja_env = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
+
 
 def render_template(handler, file_name, template_values):
     path = os.path.join(os.path.dirname(__file__), 'templates/', file_name)
@@ -180,10 +187,25 @@ class ErrorHandler(webapp2.RequestHandler):
     def post(self):
         self.response.out.write('nothing mapped there (post).')
 
-# class ExperiencesHandler(webapp2.RequestHandler):
-#     def get(self):
-#         city = self.request.get('city')
-#     re
+
+class SearchExperienceHandler(webapp2.RequestHandler):
+    def get(self):
+        render_template(self, 'search-experience.html', {})
+
+
+class ViewExperienceHandler(webapp2.RequestHandler):
+    def post(self):
+        view_template = the_jinja_env.get_template('templates/view-experience.html')
+        city = self.request.get('city')
+        print(city)
+        # city = 'Tucson'
+        values = get_template_parameters()
+        # values = self.request.get('city') dictionary
+        values['experiences'] = socialdata.show_experience(city)
+        # values['experiences'] = [[0,1,2],[3,4,5]]
+        print(values['experiences'])
+        # render_template(self, 'view-experience.html', values)
+        self.response.write(view_template.render(values))
 
 app = webapp2.WSGIApplication([
     ('/profile-view', ProfileViewHandler),
@@ -192,6 +214,8 @@ app = webapp2.WSGIApplication([
     # ('/experiences', ExperiencesHandler),
     ('/experiences/create', CreateExperienceHandler),
     ('/experiences/save', SaveExperienceHandler),
+    ('/searchexperience', SearchExperienceHandler),
+    ('/viewexperience', ViewExperienceHandler),
     ('/', MainHandler),
     # ('.*', ErrorHandler),
 ])

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<body>
+{% for experience in experiences %}
+Experience Name:
+    {{experience[0]}} <br> 
+    <!-- this hard codes the changes, so if you wanted to add more information to experience view, you must change it in socialdata and then add price -->
+    <!-- add button tag inside this for loop so that it may be applied everytime -->
+Experience City:
+    {{experience[1]}} <br>
+Experience State:
+    {{experience[2]}} <br>
+Experience Descripton:
+    {{experience[3]}} <br>
+    <br>
+    <br>
+{% endfor %}   
+ </body>
+{% endblock %}
