@@ -2,7 +2,6 @@ import datetime
 import logging
 import os
 import webapp2
-import jinja2
 from google.appengine.api import images
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -10,11 +9,6 @@ from google.appengine.ext.webapp import template
 import socialdata
 
 messages = []
-
-the_jinja_env = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
 
 
 def render_template(handler, file_name, template_values):
@@ -177,7 +171,7 @@ class SaveExperienceHandler(webapp2.RequestHandler):
             endtime = self.request.get('endtime')
             category = self.request.get('category')
             price = self.request.get('price')
-            socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
+            socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price, email)
             print(description)
         render_template(self, 'create-experience.html', {})
 
@@ -195,7 +189,6 @@ class SearchExperienceHandler(webapp2.RequestHandler):
 
 class ViewExperienceHandler(webapp2.RequestHandler):
     def post(self):
-        view_template = the_jinja_env.get_template('templates/view-experience.html')
         city = self.request.get('city')
         print(city)
         # city = 'Tucson'
@@ -205,7 +198,7 @@ class ViewExperienceHandler(webapp2.RequestHandler):
         # values['experiences'] = [[0,1,2],[3,4,5]]
         print(values['experiences'])
         # render_template(self, 'view-experience.html', values)
-        self.response.write(view_template.render(values))
+        render_template(self, 'view-experience.html', values)
 
 app = webapp2.WSGIApplication([
     ('/profile-view', ProfileViewHandler),
