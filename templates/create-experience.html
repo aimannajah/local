@@ -4,9 +4,9 @@
 <html>
     <script src="/experience.js"></script> 
 <body>
+<form action="/experiences/save" method="post"> 
 <p><h2>Add Experience</h2></p>
-<form action="/experiences/save" method="post">
-  <p>Location</p>
+  <p>Location
  <select name='state'>
     <option>Select State</option>
     <option value="AL">Alabama</option>
@@ -61,21 +61,21 @@
 	<option value="WI">Wisconsin</option>
 	<option value="WY">Wyoming</option>
   <select>
-<p>City: </p>
- <input type='text', name='city'></input>
+      </p>
+<p>City: <input type='text', name='city'></input></p>
   
   <p>Experience Name: 
       <input type="text", name="experiencename"><br><br></input>
   </p>
-  <p>Description:</p>
-      <p><textarea id="description", name='description', rows="10", cols="36"></textarea></p>
+  <p>Description:
+      <textarea id="description", name='description', rows="10", cols="36"></textarea></p>
   <p>Time: </p>
   <p>Start
    <input type='time' name='starttime' id='time'></p>
  <p>End
    <input type='time' name='endtime' id='time'></p>
 
-  <p>Category: <br>
+  <p>Category: 
   <select name='category'>
   <option>Select Option</option>
   <option value="adventure">Adventure</option>
@@ -84,30 +84,16 @@
  </select>
   </p>
   
-  <p>Estimated Price: </p>
-  
-<p>Use the slider to increment or decrement value.</p> 
-  
-<div class="rangeslider"> 
-  <input type="range" min="0" max="500" id="sliderRange" name='price'> 
-  <p>Value: $<span id="number"></span></p> 
-</div> 
-  
-<script> 
-let rangeslider = document.getElementById("sliderRange"); 
-let output = document.getElementById("number"); 
-output.innerHTML = rangeslider.value; 
-  
-rangeslider.oninput = function() { 
-  output.innerHTML = this.value; 
-} 
-</script> 
+  <p> Estimated Price: <input type='text', name='price'></input></p>
 
-<button>Submit Experience</button> 
+<button><p>Submit Experience</button></p>
 </form>
 </body>
 <style> 
 
+form {
+    text-align: center;
+}
 
 .rangeslider{ 
     width: 50%; 

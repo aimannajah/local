@@ -42,24 +42,7 @@ def get_recent_profiles():
     q = UserProfile.query().order(-UserProfile.last_update)
     return q.fetch(50)
 
-# def show_experience(city):
-#     q = Experience.query(Experience.city == city)
-#     results = q.fetch()
-#     return results
-
 def save_experience(city, state, experiencename, description, starttime, endtime, category, price):
-    # p = show_experience()
-    # if not p:
-    #     p.city = city
-    #     p.state = state
-    #     p.experiencename = experiencename
-    #     p.description = description
-    #     p.starttime = starttime
-    #     p.endtime = endtime
-    #     p.category = category
-    #     p.price = price
-    #     p.latestpost = latestpost
-    # else:
     p = Experience(city = city, state = state, experiencename = experiencename, description = description, starttime = starttime, endtime = endtime, category = category, price = price)
     p.put()
 

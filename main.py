@@ -70,6 +70,7 @@ class ProfileEditHandler(webapp2.RequestHandler):
         else: 
             values = get_template_parameters()
             profile = socialdata.get_user_profile(get_user_email())
+            print(get_user_email())
             print('\n \n profile \n \n') 
             print(profile)
             if profile:
@@ -174,24 +175,26 @@ class SaveExperienceHandler(webapp2.RequestHandler):
             print(description)
         render_template(self, 'create-experience.html', {})
 
+class ManageExperienceHandler(webapp2.RequestHandler):
+    def get(self):
+        render_template(self, 'manage-experience.html', {})
+
+class ExperienceHandler(webapp2.RequestHandler):
+    def get(self):
+        render_template(self, 'experiences-page.html', {})
 class ErrorHandler(webapp2.RequestHandler):
     def get(self):
         self.response.out.write("nothing mapped there (get).")
     def post(self):
         self.response.out.write('nothing mapped there (post).')
 
-# class ExperiencesHandler(webapp2.RequestHandler):
-#     def get(self):
-#         city = self.request.get('city')
-#     re
-
 app = webapp2.WSGIApplication([
     ('/profile-view', ProfileViewHandler),
     ('/profile-save', ProfileSaveHandler),
     ('/profile-edit', ProfileEditHandler),
-    # ('/experiences', ExperiencesHandler),
+    ('/experiences', ExperienceHandler),
     ('/experiences/create', CreateExperienceHandler),
     ('/experiences/save', SaveExperienceHandler),
-    ('/', MainHandler),
-    # ('.*', ErrorHandler),
+    ('/experiences/manage', ManageExperienceHandler),
+    ('/', MainHandler)
 ])
