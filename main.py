@@ -2,6 +2,7 @@ import datetime
 import logging
 import os
 import webapp2
+import jinja2
 from google.appengine.api import images
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -9,6 +10,12 @@ from google.appengine.ext.webapp import template
 import socialdata
 
 messages = []
+
+the_jinja_env = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
+
 
 def render_template(handler, file_name, template_values):
     path = os.path.join(os.path.dirname(__file__), 'templates/', file_name)
@@ -70,9 +77,6 @@ class ProfileEditHandler(webapp2.RequestHandler):
         else: 
             values = get_template_parameters()
             profile = socialdata.get_user_profile(get_user_email())
-            print(get_user_email())
-            print('\n \n profile \n \n') 
-            print(profile)
             if profile:
                 values['firstname'] = profile.firstname
                 values['lastname'] = profile.lastname
@@ -83,8 +87,8 @@ class ProfileEditHandler(webapp2.RequestHandler):
                 values['zipcode'] = profile.zipcode
                 values['country'] = profile.country
                 values['role'] = profile.role
-                print('\n \n hello \n \n \n')
             render_template(self, 'profile-edit.html', values)
+            self.redirect('/profile-view')
 
 
 class ProfileSaveHandler(webapp2.RequestHandler):
@@ -93,7 +97,6 @@ class ProfileSaveHandler(webapp2.RequestHandler):
         if not email:
             self.redirect('/')
         else:
-            print(self.request.get('lastname'))
             error_text = ''
             firstname = self.request.get('firstname')
             lastname = self.request.get('lastname')
@@ -172,11 +175,11 @@ class SaveExperienceHandler(webapp2.RequestHandler):
             category = self.request.get('category')
             price = self.request.get('price')
             socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
-            print(description)
-        render_template(self, 'create-experience.html', {})
+            self.redirect('/experience/view')
 
 class ManageExperienceHandler(webapp2.RequestHandler):
-    def get(self):
+    def post(self):
+        
         render_template(self, 'manage-experience.html', {})
 
 class ExperienceHandler(webapp2.RequestHandler):
@@ -188,6 +191,24 @@ class ErrorHandler(webapp2.RequestHandler):
     def post(self):
         self.response.out.write('nothing mapped there (post).')
 
+class SearchExperienceHandler(webapp2.RequestHandler):
+    def get(self):
+        render_template(self, 'search-experience.html', {})
+
+class ViewExperienceHandler(webapp2.RequestHandler):
+    def post(self):
+        view_template = the_jinja_env.get_template('templates/view-experience.html')
+        city = self.request.get('city')
+        print(city)
+        # city = 'Tucson'
+        values = get_template_parameters()
+        # values = self.request.get('city') dictionary
+        values['experiences'] = socialdata.show_experience(city)
+        # values['experiences'] = [[0,1,2],[3,4,5]]
+        print(values['experiences'])
+        # render_template(self, 'view-experience.html', values)
+        self.response.write(view_template.render(values))
+
 app = webapp2.WSGIApplication([
     ('/profile-view', ProfileViewHandler),
     ('/profile-save', ProfileSaveHandler),
@@ -196,5 +217,8 @@ app = webapp2.WSGIApplication([
     ('/experiences/create', CreateExperienceHandler),
     ('/experiences/save', SaveExperienceHandler),
     ('/experiences/manage', ManageExperienceHandler),
-    ('/', MainHandler)
+    ('/searchexperience', SearchExperienceHandler),
+    ('/viewexperience', ViewExperienceHandler),
+    ('/', MainHandler),
+    # ('.*', ErrorHandler),
 ])
