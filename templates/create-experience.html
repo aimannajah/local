@@ -84,9 +84,32 @@
  </select>
   </p>
   
+<<<<<<< HEAD
   <p> Estimated Price: <input type='text', name='price'></input></p>
 
 <button><p>Submit Experience</button></p>
+=======
+  <p>Estimated Price: </p>
+  
+<p>Use the slider to increment or decrement value.</p> 
+  
+<div class="rangeslider"> 
+  <input type="range" min="0" max="500" id="sliderRange" name='price'> 
+  <p>Value: $<span id="number"></span></p> 
+</div> 
+
+<script> 
+let rangeslider = document.getElementById("sliderRange"); 
+let output = document.getElementById("number"); 
+output.innerHTML = rangeslider.value; 
+  
+rangeslider.oninput = function() { 
+  output.innerHTML = this.value; 
+} 
+</script> 
+
+<button onclick="alert('Experience has been submitted!')"> Submit Experience</button> 
+>>>>>>> 5341ff907ccb42dc6872f8b588d917c781a968d2
 </form>
 </body>
 <style> 

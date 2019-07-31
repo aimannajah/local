@@ -22,4 +22,5 @@ class Experience(ndb.Model):
     endtime = ndb.StringProperty()
     category = ndb.StringProperty()
     price = ndb.StringProperty()
+    email = ndb.StringProperty()
     # latestpost = ndb.DateTimeProperty(auto_now=True)
