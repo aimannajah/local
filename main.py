@@ -160,7 +160,7 @@ app = webapp2.WSGIApplication([
     ('/profile-view', ProfileViewHandler),
     ('/profile-save', ProfileSaveHandler),
     ('/profile-edit', ProfileEditHandler),
-    ('/send-contact', FormHandler)
+    ('/send-contact', ContactUsHandler)
     ('/experiences/create', CreateExperienceHandler),
     ('/.*', MainHandler)
 ])
