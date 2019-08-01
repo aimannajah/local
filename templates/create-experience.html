@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<html>
+<!-- <html>
     <script src="/experience.js"></script> 
 <body>
-<<<<<<< HEAD
 <form action="/experiences/save" method="post"> 
 <p><h2>Add Experience</h2></p>
   <p>Location
@@ -69,7 +68,7 @@
       <input type="text", name="experiencename"><br><br></input>
   </p>
   <p>Description:
-      <textarea id="description", name='description', rows="10", cols="36"></textarea></p>
+     <textarea id="description", name='description', rows="10", cols="36"></textarea></p>
   <p> Date: 
     <input type="date" id="date" name="date"> </p>
   <p>Time: </p>
@@ -89,25 +88,27 @@
   
   <p>Estimated Price: </p>
   
-<p>Use the slider to increment or decrement value.</p> 
-  
+<p>Use the slider to increment or decrement value.</p>  -->
+<!--   
 <div class="rangeslider"> 
   <input type="range" min="0" max="500" id="sliderRange" name='price'> 
   <p>Value: $<span id="number"></span></p> 
-</div> 
-=======
+</div>  -->
+<html>
+    <script src="/experience.js"></script> 
+<body>
     <div class="mx-auto"><div class="p-3 border bg-light">
         <form action="/experiences/save" method="post"> 
             <p><h2>Add Experience</h2></p>
 
         <div class='form-group'>
             <label for="city">City</label>
-            <input type='text' class="form-control" id='city'></input>
+            <input type='text' class="form-control" id='city' name='city'></input>
         </div>
 
         <div class='form-group'>
             <label for="state">State</label>
-            <select class="form-control" id="state">
+            <select class="form-control" id="state" name='state'>
                 <option>Select State</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -163,43 +164,35 @@
             <select>
             </p>
         </div>
->>>>>>> d132aec77d4e8672575ee58797e36be98fa6a4ec
 
         <div class='form-group'>
             <label for="experiencename">Experience Name</label>
-            <input type="text" class="form-control" id="experiencename"></input>
+            <input type="text" class="form-control" id="experiencename" name='experiencename'></input>
         </div>
 
-<<<<<<< HEAD
-<button onclick="alert('Experience has been submitted!')"> Submit Experience</button> 
-</form>
-</body>
-<style> 
-=======
         <div class='form-group'>
             <label for="description">Description</label>
-            <textarea id="description" class="form-control" rows="10"></textarea>
+            <textarea id="description" class="form-control" rows="10" name='description'></textarea>
         </div>
 
         <div>
             <label for="date">Date</label>
             <input type='date' class="form-control" id='date' name='date'>
         </div>
->>>>>>> d132aec77d4e8672575ee58797e36be98fa6a4ec
 
         <div class='form-group'>
             <label for="starttime">Start Time</label>
-            <input type='time' class="form-control" id='starttime'>
+            <input type='time' class="form-control" id='starttime' name='starttime'>
         </div>
 
         <div class='form-group'>
             <label for="endtime">End Time</label>
-            <input type='time' class="form-control" id='endtime'>
+            <input type='time' class="form-control" id='endtime' name='endtime'>
         </div>
 
         <div class='form-group'>
             <label for="category">Category</label>
-            <select class="form-control" id="category">
+            <select class="form-control" id="category" name='category'>
                 <option>Select Option</option>
                 <option value="adventure">Adventure</option>
                 <option value="relax">Relaxation</option>
@@ -209,12 +202,13 @@
     
         <div class="rangeslider"> 
             <label for="price">Price</label>
-            <input type="text" id="price" class='form-control'> 
-        </div> 
+            <input type="text" id="price" class='form-control' name='price'> 
+        </div> <br>
 
-        <button onclick="alert('Experience has been submitted!')" type="button" class="btn btn-outline-dark">Submit Experience</button>
+        <input type='submit' onclick="alert('Experience has been submitted!')" class="btn btn-outline-dark" value='Submit Experience'>
         </form>
     </div></div>
 </body>
 </html>
+
 {% endblock %}
