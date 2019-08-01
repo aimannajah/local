@@ -2,13 +2,20 @@ import datetime
 import logging
 import os
 import webapp2
+import jinja2
 from google.appengine.api import images
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from google.appengine.ext.webapp import template
 import socialdata
+from google.appengine.api import mail
 
 messages = []
+
+the_jinja_env = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
 
 
 def render_template(handler, file_name, template_values):
@@ -29,7 +36,7 @@ def get_template_parameters():
         values['Traveller'] = socialdata.is_traveller(email)
         values['Local'] = socialdata.is_local(email)
         values['logout_url'] = users.create_logout_url('/')
-    else: 
+    else:
         values['login_url'] = users.create_login_url('/')
     return values
 
@@ -71,6 +78,8 @@ class ProfileEditHandler(webapp2.RequestHandler):
         else: 
             values = get_template_parameters()
             profile = socialdata.get_user_profile(get_user_email())
+            print('\n \n profile \n \n') 
+            print(profile)
             if profile:
                 values['firstname'] = profile.firstname
                 values['lastname'] = profile.lastname
@@ -81,8 +90,8 @@ class ProfileEditHandler(webapp2.RequestHandler):
                 values['zipcode'] = profile.zipcode
                 values['country'] = profile.country
                 values['role'] = profile.role
+                print('\n \n hello \n \n \n')
             render_template(self, 'profile-edit.html', values)
-            self.redirect('/profile-view')
 
 
 class ProfileSaveHandler(webapp2.RequestHandler):
@@ -91,6 +100,7 @@ class ProfileSaveHandler(webapp2.RequestHandler):
         if not email:
             self.redirect('/')
         else:
+            print(self.request.get('lastname'))
             error_text = ''
             firstname = self.request.get('firstname')
             lastname = self.request.get('lastname')
@@ -190,6 +200,9 @@ class ManageExperienceHandler(webapp2.RequestHandler):
 class ExperienceHandler(webapp2.RequestHandler):
     def get(self):
         render_template(self, 'experiences-page.html', {})
+            socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
+            print(description)
+        render_template(self, 'create-experience.html', {})
 
 class ErrorHandler(webapp2.RequestHandler):
     def get(self):
@@ -197,12 +210,15 @@ class ErrorHandler(webapp2.RequestHandler):
     def post(self):
         self.response.out.write('nothing mapped there (post).')
 
+
 class SearchExperienceHandler(webapp2.RequestHandler):
     def get(self):
         render_template(self, 'search-experience.html', {})
 
+
 class ViewExperienceHandler(webapp2.RequestHandler):
     def post(self):
+        view_template = the_jinja_env.get_template('templates/view-experience.html')
         city = self.request.get('city')
         print(city)
         # city = 'Tucson'
@@ -212,16 +228,46 @@ class ViewExperienceHandler(webapp2.RequestHandler):
         # values['experiences'] = [[0,1,2],[3,4,5]]
         print(values['experiences'])
         # render_template(self, 'view-experience.html', values)
-        render_template(self, 'view-experience.html', values)
+        self.response.write(view_template.render(values))
+
+
+class RequestExperienceHandler(webapp2.RequestHandler):
+
+    def get(self):
+        html = """
+        <html>
+            <body>
+                <form method="post" action="/">
+                    <input type="text" name="emailrequest">
+                    <input type="submit" value="Request">
+                    <a href="/request-experience">
+            </body>
+        </html>
+        """
+        # html
+
+        name = self.request.get("name")
+        from_address = "yuh@local.appspotmail.com"
+        subject = "New Request from: " + name
+        body = "Request from " + get_user_email() + ": \n\n" + 
+        get_experience_name()
+        user = users.get_current_user()
+
+        if user:
+            self.redirect("/new-request?experience=get_experience_id")
+            mail.send_mail(from_address, get_user_email(), body, subject)
+
+        else:
+            self.redirect("/signuppage") ###
+
 
 app = webapp2.WSGIApplication([
     ('/profile-view', ProfileViewHandler),
     ('/profile-save', ProfileSaveHandler),
     ('/profile-edit', ProfileEditHandler),
-    ('/experiences', ExperienceHandler),
+    # ('/experiences', ExperiencesHandler),
     ('/experiences/create', CreateExperienceHandler),
     ('/experiences/save', SaveExperienceHandler),
-    ('/experiences/manage', ManageExperienceHandler),
     ('/searchexperience', SearchExperienceHandler),
     ('/viewexperience', ViewExperienceHandler),
     ('/', MainHandler),
