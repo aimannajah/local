@@ -200,8 +200,7 @@ class ManageExperienceHandler(webapp2.RequestHandler):
 class ExperienceHandler(webapp2.RequestHandler):
     def get(self):
         render_template(self, 'experiences-page.html', {})
-            socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
-            print(description)
+        socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
         render_template(self, 'create-experience.html', {})
 
 class ErrorHandler(webapp2.RequestHandler):
@@ -249,8 +248,7 @@ class RequestExperienceHandler(webapp2.RequestHandler):
         name = self.request.get("name")
         from_address = "yuh@local.appspotmail.com"
         subject = "New Request from: " + name
-        body = "Request from " + get_user_email() + ": \n\n" + 
-        get_experience_name()
+        body = "Request from " + get_user_email() + ": \n\n" + get_experience_name()
         user = users.get_current_user()
 
         if user:
