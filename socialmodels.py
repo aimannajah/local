@@ -18,6 +18,7 @@ class Experience(ndb.Model):
     state = ndb.StringProperty()
     experiencename = ndb.StringProperty()
     description = ndb.TextProperty()
+    date = ndb.StringProperty()
     starttime = ndb.StringProperty()
     endtime = ndb.StringProperty()
     category = ndb.StringProperty()

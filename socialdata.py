@@ -51,15 +51,19 @@ def show_experience(city):
         # hard coded at view-experience.html
         # to enter more info, append the necessary information
     return experiences
-<<<<<<< HEAD
-    
-def save_experience(city, state, experiencename, description, starttime, endtime, category, price):
-    p = Experience(city = city, state = state, experiencename = experiencename, description = description, starttime = starttime, endtime = endtime, category = category, price = price)
-=======
 
-def save_experience(city, state, experiencename, description, starttime, endtime, category, price, email):
-    p = Experience(city = city, state = state, experiencename = experiencename, description = description, starttime = starttime, endtime = endtime, category = category, price = price, email = email)
->>>>>>> 5341ff907ccb42dc6872f8b588d917c781a968d2
+def retrieve_experience(id):
+    print(id)
+    q = Experience.get_by_id(long(id))
+    print(q)
+    # results = q.fetch(1)
+    # for experience in results:
+    #     return expereience
+    # return None
+    return q
+    
+def save_experience(city, state, experiencename, description, date, starttime, endtime, category, price, email):
+    p = Experience(city = city, state = state, experiencename = experiencename, description = description, date = date, starttime = starttime, endtime = endtime, category = category, price = price, email = email)
     p.put()
 
 def get_profile_by_email(email):
