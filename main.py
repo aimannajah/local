@@ -174,8 +174,29 @@ class SaveExperienceHandler(webapp2.RequestHandler):
             category = self.request.get('category')
             price = self.request.get('price')
             socialdata.save_experience(city, state, experiencename, description, date, starttime, endtime, category, price, email)
-            print(description)
-        render_template(self, 'create-experience.html', {})
+            # self.redirect('/experiences/view')
+
+class ManageExperienceHandler(webapp2.RequestHandler):
+    def get(self):
+        values = get_template_parameters()
+        exp_key = self.request.get('id')
+        exp = socialdata.get_experience_by_id(exp_key)
+        values['city'] = exp.city
+        values['name'] = exp.experiencename
+        values['description'] = exp.description
+        values['starttime'] = exp.starttime
+        values['endtime'] = exp.endtime
+        values['category'] = exp.category
+        values['price'] = exp.price
+        values['email'] = exp.email
+        render_template(self, 'manage-experience.html', values)
+
+# class ExperienceHandler(webapp2.RequestHandler):
+#     def get(self):
+#         render_template(self, 'experiences-page.html', {})
+#             socialdata.save_experience(city, state, experiencename, description, date, starttime, endtime, category, price)
+#             print(description)
+#         render_template(self, 'create-experience.html', {})
 
 class ErrorHandler(webapp2.RequestHandler):
     def get(self):

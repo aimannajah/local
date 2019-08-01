@@ -1,3 +1,5 @@
+from google.appengine.ext import ndb
+
 from socialmodels import UserProfile
 from socialmodels import Experience
 
@@ -61,7 +63,7 @@ def retrieve_experience(id):
     #     return expereience
     # return None
     return q
-    
+
 def save_experience(city, state, experiencename, description, date, starttime, endtime, category, price, email):
     p = Experience(city = city, state = state, experiencename = experiencename, description = description, date = date, starttime = starttime, endtime = endtime, category = category, price = price, email = email)
     p.put()
@@ -72,3 +74,8 @@ def get_profile_by_email(email):
     for profile in results:
         return profile
     return None
+
+def get_experience_by_id(exp_key):
+    key = ndb.Key(urlsafe=exp_key)
+    return key.get()
+    
