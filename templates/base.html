@@ -117,10 +117,38 @@
           
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+<<<<<<< HEAD
             <form class="form-inline mr-auto">
                 <div class="md-form my-0">
                     <input class="form-control" type="text" placeholder="Search" aria-label="Search">
                     <i class="fas fa-search text-white ml-3" aria-hidden="true"></i>
+=======
+    </head>
+        <body> 
+        <h1> Local </h1>
+        <div class="container">
+            <div id='topmenu'>
+                <a href='/'>Home</a>
+                <a href='/searchexperience'>Search for an Experience</a>
+                {% if login_url %}
+                <a href='{{login_url}}'>Sign In</a>
+                {% else %}
+                <div class='dropdown'> <button class='dropbtn'>Profile</button>
+                    <div class='dropdown-content'>
+                        <a href='/profile-view'> View Profile</a>
+                        {% if viewprofile %}
+                        <a href='/profile-edit'>Edit Profile</a>
+                        {% endif %}
+                        </div>
+                    </div>
+                {% if Local %}
+                <div class='dropdown'> <button class='dropbtn'>Experiences</button>
+                {% if experiences %}
+                <div class='dropdown-content'>
+                    <a href='/manageexperience'>Manage Experiences</a>
+                    <a href='/experiences/create'>Create an Experience</a>
+                    <a href='/experiences/future'>Future Experiences</a>
+>>>>>>> 0890387f995013ca899a27554276b170669fa749
                 </div>
             </form>
 

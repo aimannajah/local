@@ -1,7 +1,6 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block content %}
 
-<<<<<<< HEAD
 {% for experience in experiences %}
 
 <strong class="d-inline-block mb-2 text-primary">{{experience.category}}</strong>
@@ -13,33 +12,6 @@
       <img src="smiley.gif" alt="Smiley face" height="42" width="42">>
       
     
-=======
-<style>
-    .boxed{
-    border: 1px solid green ;
-    }
-    </style>
-<body>
-{% for experience in experiences %}
-<div class='boxed'>
-Experience Name:
-    {{experience.experiencename}} <br> 
-    <!-- this hard codes the changes, so if you wanted to add more information to experience view, you must change it in socialdata and then add price -->
-    <!-- add button tag inside this for loop so that it may be applied everytime -->
-Experience City:
-    {{experience.city}} <br>
-Experience State:
-    {{experience.state}} <br>
-Experience Date:
-    {{experience.date}} <br>
-Experience Descripton:
-    {{experience.description}} <br>
-Experience Date:
-    {{experience.date}} <br>
-Experience Price:
-    {{experience.price}} <br>
-<a href="/requestexperience?id={{experience.key.id}}" onclick="alert('Request to Join Experience has been Sent!')"> Join Experience! </a>
->>>>>>> 0890387f995013ca899a27554276b170669fa749
     </div>
     <div class="col-md-8">
       <div class="card-body">
@@ -54,7 +26,8 @@ Experience Price:
     </div>
   </div>
 </div>
-<a href="/requestexperience?id={{experience.key.id}}" > Join Experience! </a>
 
-{% endfor %} 
+
+{% endfor %}
+
 {% endblock %}

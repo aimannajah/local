@@ -25,3 +25,7 @@ class Experience(ndb.Model):
     price = ndb.StringProperty()
     email = ndb.StringProperty()
     # latestpost = ndb.DateTimeProperty(auto_now=True)
+
+class Request(ndb.Model):
+    experienceid = ndb.StringProperty()
+    useremail = ndb.StringProperty()
