@@ -1,103 +1,138 @@
-<html>
-    <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel='stylesheet' href='/static/styles.css'> 
-    <link rel='icon' href='/CSSI/localicon.ico'>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.boothstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="" crossorigin="">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 <style>
-    h1 {
-        font-size: 80px;
-    }
-    
-    #topmenu {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 20px;
-    }
-
-    .dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    } 
-
-    .dropdown {
-    position: relative;
-    display: inline-block;
+    .local
+	{
+		position: relative;
+		top: 0;
+		left: 0;
+	}
+    .bckgrd
+    {
+        position: absolute;
+        filter: blur(1px);
+        filter: brightness(50%);
+        left: 0px;
+        top: 0px;
+        z-index: -1;
     }
 
-    .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+	div.sticky{
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
     }
 
-    .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    }
+</style>
 
-    .dropdown-content a:hover {background-color: #ddd;}
-
-    .dropdown:hover .dropdown-content {display: block;}
-
-    .dropdown:hover .dropbtn {background-color: #3e8e41;}
-
-    </style>
-
-    </head>
-        <body> 
-        <h1> Local </h1>
-        <div class="container">
-            <div id='topmenu'>
-                <a href='/'>Home</a>
-                <a href='/searchexperience'>Search for an Experience</a>
-                {% if login_url %}
-                <a href='{{login_url}}'>Sign In</a>
-                {% else %}
-                <div class='dropdown'> <button class='dropbtn'>Profile</button>
-                    <div class='dropdown-content'>
-                        <a href='/profile-view'> View Profile</a>
-                        {% if viewprofile %}
-                        <a href='/profile-edit'>Edit Profile</a>
-                        {% endif %}
-                        </div>
-                    </div>
-                {% if Local %}
-                <div class='dropdown'> <button class='dropbtn'>Experiences</button>
-                {% if experiences %}
-                <div class='dropdown-content'>
-                    <a href='/experiences/manage'>Manage Experiences</a>
-                    <a href='/experiences/create'>Create an Experience</a>
-                    <a href='/experiences/future'>Future Experiences</a>
-                </div>
-                {% endif %}
-                {% endif %}
-                {% if Traveller %}
-                <a href='experiences'>Experiences</a>
-                {% if experiences %}
-                <a href='/experiences/future'>Future Experiences</a>
-                {% endif %}
-                {% endif %}
-                <a href='{{logout_url}}'>Sign Out</a> 
-                {% endif %}
-                <hr>
-            </div>
-            {% if successmsg %}
-            <div id='successmsg'>{{successmsg}}</div>
-            {% endif %}
-            {% if errormsg %}
-            <div id='errormsg'>{{errormsg}}</div>
-            {% endif %}
-                {% block content %}{% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+   <body>
+    <h1>
+        <div class="container-fluid">
+        <a class="local" href=''><img src='https://lh3.googleusercontent.com/bT_FotIsBNGkBehM3HGF28dAahtkczaquVxIrsBN2Dffw9KQyt-BzUKlLoNknVLTsZ0V_hxYpEtoZAdbrYhL0q_AOyyx0XQd-UxUGwjljouBnLNH1ZvyTaWJo6ePS3ZKJShlUCVA=w2400' /></a>
+        <a class="bckgrd" href='https://photos.google.com/share/AF1QipP3nP9ZL1706C_eMWvTzgxT1tBtw1efJv9r9kbuKe3hEX-Ac_0MS5q_yfMAQ0Fc7w?key=bXlxR2lPUThIZGdfbEhwYVJOZXRCMG9DSHFVNE93&source=ctrlq.org'><img src='https://lh3.googleusercontent.com/ibqdszcQV3VQ3nWeBTpsLD1ejxMVWF34V1NVbPgBiJA9bUmlhHxQ0rF0TQ22j8tOXo2xsyCILaR-LeuvUUubwW6KIoUR55Fu_11Ht-JQvT1SZiMMHuEadp4xxQWoA7--QIIVlL1-=w2400' /></a>
         </div>
-    </body>
+    </h1>
+<div class="sticky">
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"></a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li>
+              {% if logout_url %}
+              <a href='{{login_url}}'>Sign In</a>
+              {% else %}
+              <a href='{{logout_url}}'>Sign Out</a>
+              {% endif %}
+          </li>
+
+          <li>
+              {% if login_url %}
+              <a href='/profile-view'> View Profile</a>
+              {% endif %}
+          </li>
+          
+          <li> 
+              {% if login_url %}
+              <a href='/profile-edit'> Edit Profile</a>
+              {% endif %}
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Experience<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/manage'>Manage</a>
+                           {% endif %}
+
+                    </li>
+
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/create'>Create</a>
+                            {% endif %}
+                    </li>
+
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/future'>Future</a>
+                            {% endif %}
+                    </li>
+                    <li>
+                                {% if experiences %}
+                                <a href='/experiences/future'>Future Experiences</a>
+                                {% endif %}
+                    </li>
+        </ul>
+      </li>
+    
+    <ul class="nav navbar-nav navbar-right">
+              <li>
+                    <a href='{{login_url}}'><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+              </li>
+              <li>
+                    <a href='{{logout_url}}'><span class="glyphicon glyphicon-log-in"></span> Login</a>
+              </li>
+    </ul>
+
+
+      <li class="active"><a href="#">
+          
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <form class="form-inline mr-auto">
+                <div class="md-form my-0">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                    <i class="fas fa-search text-white ml-3" aria-hidden="true"></i>
+                </div>
+            </form>
+
+        </div>
+        </a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="container">
+
+{% block content %}{% endblock %}
+</div>
+</body>
 </html>

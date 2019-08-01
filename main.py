@@ -2,9 +2,12 @@ import datetime
 import logging
 import os
 import webapp2
+
 from google.appengine.api import images
 from google.appengine.api import users
+from google.appengine.ext import blobstore
 from google.appengine.ext import ndb
+from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.ext.webapp import template
 import socialdata
 from google.appengine.api import mail
@@ -30,6 +33,7 @@ def get_template_parameters():
         values['Traveller'] = socialdata.is_traveller(email)
         values['Local'] = socialdata.is_local(email)
         values['logout_url'] = users.create_logout_url('/')
+        values['upload_url'] = blobstore.create_upload_url('/upload')
     else:
         values['login_url'] = users.create_login_url('/')
     return values
@@ -61,8 +65,6 @@ class MainHandler(webapp2.RequestHandler):
                 print(profile.role)
                 if values['role'] == 'Local':
                     values['Local'] = True
-            # else:
-            #     self.redirect('/profile-edit')
         render_template(self, 'mainpage.html', values)
 
 class ProfileEditHandler(webapp2.RequestHandler):
@@ -192,10 +194,10 @@ class ManageExperienceHandler(webapp2.RequestHandler):
         render_template(self, 'manage-experience.html', values)
 
 # class ExperienceHandler(webapp2.RequestHandler):
-#     def get(self):
-#         render_template(self, 'experiences-page.html', {})
-#         socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
-#         render_template(self, 'create-experience.html', {})
+#      def get(self):
+#          render_template(self, 'experiences-page.html', {})
+#          socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
+#          render_template(self, 'create-experience.html', {})
 
 # class ExperienceHandler(webapp2.RequestHandler):
 #     def get(self):
@@ -266,7 +268,6 @@ app = webapp2.WSGIApplication([
     ('/profile-view', ProfileViewHandler),
     ('/profile-save', ProfileSaveHandler),
     ('/profile-edit', ProfileEditHandler),
-    # ('/experiences', ExperiencesHandler),
     ('/experiences/create', CreateExperienceHandler),
     ('/experiences/save', SaveExperienceHandler),
     ('/searchexperience', SearchExperienceHandler),

@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <script src="/experience.js"></script> 
-<body>
-<h2>Search for an Experience</h2>
-    <form method="post" action="/viewexperience">
+<head>
+    <title>Experience</title>
+</head>
 
-        <h4>Location</h4>
-
-        City: <input type="text" name='city'><br><br>
-        <select> <option>Select State</option>
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">Experiences</h1>
+        <p class="lead text-muted">The core feature of this website - experiences. Connect with others to discover a whole new world!</p>
+        <h3>Search by Location</h3>
+    <form class="form-inline md-form form-sm mt-0" method="post" action="/viewexperience">
+        <i class="fas fa-search" aria-hidden="true"></i>
+    City: <input class="form-control form-control-sm ml-3 w-75" name='city' type="text" placeholder="Search"
+        aria-label="Search">
+    <div class="dropdown">
+        <select class="browser-default custom-select">
+             <option selected>Select State</option>
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
             <option value="AZ">Arizona</option>
@@ -62,23 +69,76 @@
             <option value="WI">Wisconsin</option>
             <option value="WY">Wyoming</option>
         <select>
-       
-
+       </div>
+       <div>
         <input type='submit' value='Search for Experience'> 
     </form>
+      </div>
+    </section>
 
-<!-- <h3> Experiences </h3>
- {% for experience in experiences %}
-    {{experience}}
-{% endfor %} -->
-    <!-- City: {{city}} <br><br>
-    State: {{state}} <br><br>
-    Experience: {{experiencename}} <br><br>
-    Description: {{description}} <br><br>
-    Start Time: {{starttime}} <br><br>
-    End Time: {{endtime}} <br><br>
-    Category:{{category}} <br><br>
-    Price:{{price}} <br><br> -->
-</body>
+    <div class="album text-muted">
+      <div class="container">
 
+        <div class="row">
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" style="height: 280px; width: 100%; display: block;" data-holder-rendered="true">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <script>
+      $(function () {
+        Holder.addTheme("thumb", { background: "#55595c", foreground: "#eceeef", text: "Thumbnail" });
+      });
+    </script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  
+
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="280" viewBox="0 0 26 280" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="14" style="font-weight:bold;font-size:14pt;font-family:Arial, Helvetica, Open Sans, sans-serif">26x280</text></svg>
 {% endblock %}

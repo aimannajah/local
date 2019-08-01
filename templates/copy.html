@@ -1,0 +1,805 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <link rel='stylesheet' href='/static/styles.css'> 
+        <link rel='icon' href='/CSSI/localicon.ico'>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Local</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+</head>
+<style>
+    h1 {
+        font-size: 80px;
+        color: white;
+        padding: 30px;
+    }
+    
+    #topmenu {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 20px;
+    }
+    .dropdown {
+    position: relative;
+    display: inline-block;
+    }
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    }
+    .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    }
+    .dropdown-content a:hover {background-color: #ddd;}
+    .dropdown:hover .dropdown-content {display: block;}
+    .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+    .wrapper {
+    display: flex;
+    align-items: stretch;
+    }
+
+    #sidebar {
+        min-width: 250px;
+        max-width: 250px;
+        min-height: 100vh;
+    }
+
+    #sidebar.active {
+        margin-left: -250px;
+    }
+
+    a[data-toggle="collapse"] {
+    position: relative;
+    }
+
+    .dropdown-toggle::after {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+    }
+    @media (max-width: 768px) {
+        #sidebar {
+            margin-left: -250px;
+        }
+        #sidebar.active {
+            margin-left: 0;
+        }
+    }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #fafafa;
+    }
+
+    p {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1em;
+        font-weight: 300;
+        line-height: 1.7em;
+        color: #999;
+    }
+
+    a, a:hover, a:focus {
+        color: inherit;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    #sidebar {
+        background: #7386D5;
+        color: #fff;
+        transition: all 0.3s;
+    }
+
+    #sidebar .sidebar-header {
+        padding: 20px;
+        background: #6d7fcc;
+    }
+
+    #sidebar ul.components {
+        padding: 20px 0;
+        border-bottom: 1px solid #47748b;
+    }
+
+    #sidebar ul p {
+        color: #fff;
+        padding: 10px;
+    }
+
+    #sidebar ul li a {
+        padding: 10px;
+        font-size: 1.1em;
+        display: block;
+    }
+    #sidebar ul li a:hover {
+        color: #7386D5;
+        background: #fff;
+    }
+
+    #sidebar ul li.active > a, a[aria-expanded="true"] {
+        color: #fff;
+        background: #6d7fcc;
+    }
+    ul ul a {
+        font-size: 0.9em !important;
+        padding-left: 30px !important;
+        background: #6d7fcc;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+
+    }); 
+</script>
+    
+        <body> 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+        <h1><a href='https://photos.google.com/share/AF1QipP7AZqm6FZy7DaG3CfII6sFwh3wrvomO5On-jtZLjegYs2N5pf6Giv2CgT7jiKaNg?key=NDB4ak5TcFJjaExBLVBrT29Hc2VTVmF0d1VITkdn&source=ctrlq.org'><img src='https://lh3.googleusercontent.com/bT_FotIsBNGkBehM3HGF28dAahtkczaquVxIrsBN2Dffw9KQyt-BzUKlLoNknVLTsZ0V_hxYpEtoZAdbrYhL0q_AOyyx0XQd-UxUGwjljouBnLNH1ZvyTaWJo6ePS3ZKJShlUCVA=w2400' /></a></h1>
+
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Menu</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="#account" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account</a>
+                <ul class="collapse list-unstyled" id="account">
+                         <li>
+                            {% if logout_url %}
+                            <a href='{{login_url}}'>Sign In</a>
+                            {% else %}
+                            <a href='{{logout_url}}'>Sign Out</a>
+                            {% endif %}
+                        </li>
+
+                        <li>
+                            {% if login_url %}
+                            <a href='/profile-view'> View Profile</a>
+                            {% endif %}
+                        </li>
+
+                        <li>
+                            {% if login_url %}
+                            <a href='/profile-edit'>Edit Profile</a>
+                            {% endif %}
+            </li>
+            <li>
+        </ul>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Experiences</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    {% if Local %}
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/manage'>Manage</a>
+                           {% endif %}
+
+                    </li>
+
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/create'>Create</a>
+                            {% endif %}
+                    </li>
+
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/future'>Future</a>
+                            {% endif %}
+                    </li>
+                    {% endif %}
+                    {% if Traveller %}
+                    <li>
+                                {% if experiences %}
+                                <a href='/experiences/future'>Future Experiences</a>
+                                {% endif %}
+                    </li>
+                    {% endif %}
+                </ul>
+            </li>
+            <li>
+                <a href="/searchexperience">Search</a>
+            </li>
+            <li>
+                <a href="/">Home</a>
+            </li>
+        </ul>
+    </nav>
+    <div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fas fa-align-left"></i>
+            </button>
+
+        </div>
+    </nav>
+</div>
+
+</div>
+
+                {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>
+
+
+
+
+
+
+<!-- BASE HTML -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .local
+	{
+		position: relative;
+		top: 0;
+		left: 0;
+	}
+    .bckgrd
+    {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: -1;
+    }
+
+	div.sticky{
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+    }
+
+</style>
+<body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <h1>
+        <div class="container-fluid">
+        <a class="local" href=''><img src='https://lh3.googleusercontent.com/bT_FotIsBNGkBehM3HGF28dAahtkczaquVxIrsBN2Dffw9KQyt-BzUKlLoNknVLTsZ0V_hxYpEtoZAdbrYhL0q_AOyyx0XQd-UxUGwjljouBnLNH1ZvyTaWJo6ePS3ZKJShlUCVA=w2400' /></a>
+        <a class="bckgrd" href='https://photos.google.com/share/AF1QipP3nP9ZL1706C_eMWvTzgxT1tBtw1efJv9r9kbuKe3hEX-Ac_0MS5q_yfMAQ0Fc7w?key=bXlxR2lPUThIZGdfbEhwYVJOZXRCMG9DSHFVNE93&source=ctrlq.org'><img src='https://lh3.googleusercontent.com/ibqdszcQV3VQ3nWeBTpsLD1ejxMVWF34V1NVbPgBiJA9bUmlhHxQ0rF0TQ22j8tOXo2xsyCILaR-LeuvUUubwW6KIoUR55Fu_11Ht-JQvT1SZiMMHuEadp4xxQWoA7--QIIVlL1-=w2400' /></a>
+        </div>
+    </h1>
+<div class="sticky">
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"></a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li>
+              {% if logout_url %}
+              <a href='{{login_url}}'>Sign In</a>
+              {% else %}
+              <a href='{{logout_url}}'>Sign Out</a>
+              {% endif %}
+          </li>
+
+          <li>
+              {% if login_url %}
+              <a href='/profile-view'> View Profile</a>
+              {% endif %}
+          </li>
+          
+          <li> 
+              {% if login_url %}
+              <a href='/profile-edit'> Edit Profile</a>
+              {% endif %}
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Experience<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/manage'>Manage</a>
+                           {% endif %}
+
+                    </li>
+
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/create'>Create</a>
+                            {% endif %}
+                    </li>
+
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/future'>Future</a>
+                            {% endif %}
+                    </li>
+                    <li>
+                                {% if experiences %}
+                                <a href='/experiences/future'>Future Experiences</a>
+                                {% endif %}
+                    </li>
+        </ul>
+      </li>
+    
+    <ul class="nav navbar-nav navbar-right">
+              <li>
+                    <a href='{{login_url}}'><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+              </li>
+              <li>
+                    <a href='{{logout_url}}'><span class="glyphicon glyphicon-log-in"></span> Login</a>
+              </li>
+    </ul>
+
+  </div>
+</nav>
+</div>
+
+<div style="padding-bottom: 2000px">
+<div class="container">
+  <h3></h3>
+</div>
+</div>
+</body>
+</html>
+
+
+<!-- SEARCH EXPERIENCE -->
+{% extends 'base.html' %}
+{% block content %}
+
+<head>
+    <title>Experience</title>
+</head>
+
+    <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">Experiences</h1>
+        <p class="lead text-muted">The core feature of this website - experiences. Connect with others to discover a whole new world!</p>
+        <h3>Search by Location</h3>
+    <form class="form-inline md-form form-sm mt-0" method="post" action="/viewexperience">
+        <i class="fas fa-search" aria-hidden="true"></i>
+    City: <input class="form-control form-control-sm ml-3 w-75" name='city' type="text" placeholder="Search"
+        aria-label="Search">
+    <div class="dropdown">
+        <select class="browser-default custom-select">
+             <option selected>Select State</option>
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District Of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+        <select>
+       </div>
+       <div>
+        <input type='submit' value='Search for Experience'> 
+    </form>
+      </div>
+    </section>
+
+    <div class="album text-muted">
+      <div class="container">
+
+        <div class="row">
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" style="height: 280px; width: 100%; display: block;" data-holder-rendered="true">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+          <div class="card">
+            <img data-src="holder.js/100px280/thumb" alt="100%x280" data-holder-rendered="true" style="height: 280px; width: 100%; display: block;">
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+    <script>
+      $(function () {
+        Holder.addTheme("thumb", { background: "#55595c", foreground: "#eceeef", text: "Thumbnail" });
+      });
+    </script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  
+
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="280" viewBox="0 0 26 280" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="14" style="font-weight:bold;font-size:14pt;font-family:Arial, Helvetica, Open Sans, sans-serif">26x280</text></svg>
+{% endblock %}
+
+<!-- Create Experience -->
+{% extends 'base.html' %}
+{% block content %}
+
+<html>
+    <script src="/experience.js"></script> 
+<body>
+ <div class="mx-auto"><div class="p-3 border bg-light">
+     <form action="/experiences/save" method="post"> 
+            <p><h2>Add Experience</h2></p>
+
+            <div class='form-group'>
+            <label for="state">State</label>
+            <select class="form-control" id="state">
+                <option>Select State</option>
+                <option value="AL">Alabama</option>
+                <option value="AK">Alaska</option>
+                <option value="AZ">Arizona</option>
+                <option value="AR">Arkansas</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DE">Delaware</option>
+                <option value="DC">District Of Columbia</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                <option value="IA">Iowa</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="ME">Maine</option>
+                <option value="MD">Maryland</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MI">Michigan</option>
+                <option value="MN">Minnesota</option>
+                <option value="MS">Mississippi</option>
+                <option value="MO">Missouri</option>
+                <option value="MT">Montana</option>
+                <option value="NE">Nebraska</option>
+                <option value="NV">Nevada</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="NY">New York</option>
+                <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option>
+                <option value="OH">Ohio</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option>
+                <option value="UT">Utah</option>
+                <option value="VT">Vermont</option>
+                <option value="VA">Virginia</option>
+                <option value="WA">Washington</option>
+                <option value="WV">West Virginia</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WY">Wyoming</option>
+            <select>
+        </div>
+
+        <div class='form-group'>
+            <label for="city">City</label>
+            <input type='text' class="form-control" name='city' id='city'></input>
+        </div>
+  
+        <div class='form-group'>
+            <label for="experiencename">Experience Name</label>
+            <input type="text" class="form-control" name='experiencename' id="experiencename"></input>
+        </div>
+
+        <div class='form-group'>
+            <label for="description">Description</label>
+            <textarea id="description" class="form-control" rows="10"></textarea>
+        </div>
+        
+        <div>
+            <label for="date">Date</label>
+            <input type='date' class="form-control" id='date' name='date'>
+        </div>
+
+        <div class='form-group'>
+            <label for="starttime">Start Time</label>
+            <input type='time' class="form-control" id='starttime' name='starttime'>
+        </div>
+
+        <div class='form-group'>
+            <label for="endtime">End Time</label>
+            <input type='time' class="form-control" id='endtime' name='endtime'>
+        </div>
+
+        <div class='form-group'>
+            <label for="category">Category</label>
+            <select class="form-control" id="category">
+                <option>Select Option</option>
+                <option value="adventure">Adventure</option>
+                <option value="relax">Relaxation</option>
+                <option value="culture">Culture</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" class="form-control" id="price"> 
+        </div>
+
+            <button type="submit" class="btn btn-outline-secondary">Submit Experience</button>
+        
+    </form>
+    </div></div>
+</body>
+</html>
+{% endblock %}
+
+<!-- BASE -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.boothstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="" crossorigin="">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .local
+	{
+		position: relative;
+		top: 0;
+		left: 0;
+	}
+    .bckgrd
+    {
+        position: absolute;
+        filter: blur(1px);
+        filter: brightness(50%);
+        left: 0px;
+        top: 0px;
+        z-index: -1;
+    }
+
+	div.sticky{
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+    }
+
+</style>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+   <body>
+    <h1>
+        <div class="container-fluid">
+        <a class="local" href=''><img src='https://lh3.googleusercontent.com/bT_FotIsBNGkBehM3HGF28dAahtkczaquVxIrsBN2Dffw9KQyt-BzUKlLoNknVLTsZ0V_hxYpEtoZAdbrYhL0q_AOyyx0XQd-UxUGwjljouBnLNH1ZvyTaWJo6ePS3ZKJShlUCVA=w2400' /></a>
+        <a class="bckgrd" href='https://photos.google.com/share/AF1QipP3nP9ZL1706C_eMWvTzgxT1tBtw1efJv9r9kbuKe3hEX-Ac_0MS5q_yfMAQ0Fc7w?key=bXlxR2lPUThIZGdfbEhwYVJOZXRCMG9DSHFVNE93&source=ctrlq.org'><img src='https://lh3.googleusercontent.com/ibqdszcQV3VQ3nWeBTpsLD1ejxMVWF34V1NVbPgBiJA9bUmlhHxQ0rF0TQ22j8tOXo2xsyCILaR-LeuvUUubwW6KIoUR55Fu_11Ht-JQvT1SZiMMHuEadp4xxQWoA7--QIIVlL1-=w2400' /></a>
+        </div>
+    </h1>
+<div class="sticky">
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"></a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li>
+              {% if logout_url %}
+              <a href='{{login_url}}'>Sign In</a>
+              {% else %}
+              <a href='{{logout_url}}'>Sign Out</a>
+              {% endif %}
+          </li>
+
+          <li>
+              {% if login_url %}
+              <a href='/profile-view'> View Profile</a>
+              {% endif %}
+          </li>
+          
+          <li> 
+              {% if login_url %}
+              <a href='/profile-edit'> Edit Profile</a>
+              {% endif %}
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Experience<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/manage'>Manage</a>
+                           {% endif %}
+
+                    </li>
+
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/create'>Create</a>
+                            {% endif %}
+                    </li>
+
+                    <li>
+                           {% if experiences %}
+                           <a href='/experiences/future'>Future</a>
+                            {% endif %}
+                    </li>
+                    <li>
+                                {% if experiences %}
+                                <a href='/experiences/future'>Future Experiences</a>
+                                {% endif %}
+                    </li>
+        </ul>
+      </li>
+    
+    <ul class="nav navbar-nav navbar-right">
+              <li>
+                    <a href='{{login_url}}'><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+              </li>
+              <li>
+                    <a href='{{logout_url}}'><span class="glyphicon glyphicon-log-in"></span> Login</a>
+              </li>
+    </ul>
+
+
+      <li class="active"><a href="#">
+          
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <form class="form-inline mr-auto">
+                <div class="md-form my-0">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                    <i class="fas fa-search text-white ml-3" aria-hidden="true"></i>
+                </div>
+            </form>
+
+        </div>
+        </a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="container">
+
+{% block content %}{% endblock %}
+</div>
+</body>
+</html>
+
+
+</body>
