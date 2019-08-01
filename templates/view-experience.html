@@ -1,15 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<<<<<<< HEAD
-
-=======
 <style>
     .boxed{
     border: 1px solid green ;
     }
     </style>
 <body>
->>>>>>> 5341ff907ccb42dc6872f8b588d917c781a968d2
 {% for experience in experiences %}
 <div class='boxed'>
 Experience Name:
@@ -22,6 +18,8 @@ Experience State:
     {{experience.state}} <br>
 Experience Descripton:
     {{experience.description}} <br>
+Experience Date:
+    {{experience.date}} <br>
 Experience Price:
     {{experience.price}} <br>
     <button type="button" onclick="alert('Request to join epxerience has been sent!')">Join Experience!</button>

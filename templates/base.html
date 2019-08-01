@@ -1,25 +1,28 @@
 <html>
     <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel='stylesheet' href='/static/styles.css'> 
     <link rel='icon' href='/CSSI/localicon.ico'>
 
 <style>
-    #topmenu {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        font-size: 20px;
-    }
     h1 {
         font-size: 80px;
     }
+    
+    #topmenu {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 20px;
+    }
+
     .dropbtn {
     background-color: #4CAF50;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
-    }
+    } 
 
     .dropdown {
     position: relative;
@@ -47,50 +50,54 @@
     .dropdown:hover .dropdown-content {display: block;}
 
     .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
     </style>
 
     </head>
-    <body> 
+        <body> 
         <h1> Local </h1>
-        <div id='topmenu'>
-            <a href='/'>Home</a>
-            <a href='/searchexperience'>Search for an Experience</a>
-            {% if login_url %}
-            <a href='{{login_url}}'>Sign In</a>
-            {% else %}
-            <div class='dropdown'> <button class='dropbtn'>Profile</button>
+        <div class="container">
+            <div id='topmenu'>
+                <a href='/'>Home</a>
+                <a href='/searchexperience'>Search for an Experience</a>
+                {% if login_url %}
+                <a href='{{login_url}}'>Sign In</a>
+                {% else %}
+                <div class='dropdown'> <button class='dropbtn'>Profile</button>
+                    <div class='dropdown-content'>
+                        <a href='/profile-view'> View Profile</a>
+                        {% if viewprofile %}
+                        <a href='/profile-edit'>Edit Profile</a>
+                        {% endif %}
+                        </div>
+                    </div>
+                {% if Local %}
+                <div class='dropdown'> <button class='dropbtn'>Experiences</button>
+                {% if experiences %}
                 <div class='dropdown-content'>
-                    <a href='/profile-view'> View Profile</a>
-                    {% if viewprofile %}
-                    <a href='/profile-edit'>Edit Profile</a>
-                     {% endif %}
-                     </div>
-            {% if Local %}
-            <div class='dropdown'> <button class='dropbtn'>Experiences</button>
-            {% if experiences %}
-            <div class='dropdown-content'>
-                <a href='/experiences/manage'>Manage Experiences</a>
-                <a href='/experiences/create'>Create an Experience</a>
+                    <a href='/experiences/manage'>Manage Experiences</a>
+                    <a href='/experiences/create'>Create an Experience</a>
+                    <a href='/experiences/future'>Future Experiences</a>
+                </div>
+                {% endif %}
+                {% endif %}
+                {% if Traveller %}
+                <a href='experiences'>Experiences</a>
+                {% if experiences %}
                 <a href='/experiences/future'>Future Experiences</a>
+                {% endif %}
+                {% endif %}
+                <a href='{{logout_url}}'>Sign Out</a> 
+                {% endif %}
+                <hr>
             </div>
+            {% if successmsg %}
+            <div id='successmsg'>{{successmsg}}</div>
             {% endif %}
+            {% if errormsg %}
+            <div id='errormsg'>{{errormsg}}</div>
             {% endif %}
-            {% if Traveller %}
-            <a href='experiences'>Experiences</a>
-            {% if experiences %}
-            <a href='/experiences/future'>Future Experiences</a>
-            {% endif %}
-            {% endif %}
-            <a href='{{logout_url}}'>Sign Out</a> 
-            {% endif %}
-            <hr>
+                {% block content %}{% endblock %}
         </div>
-        {% if successmsg %}
-        <div id='successmsg'>{{successmsg}}</div>
-        {% endif %}
-        {% if errormsg %}
-        <div id='errormsg'>{{errormsg}}</div>
-        {% endif %}
-            {% block content %}{% endblock %}
-</body>
+    </body>
 </html>

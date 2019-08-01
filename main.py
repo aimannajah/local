@@ -164,21 +164,33 @@ class SaveExperienceHandler(webapp2.RequestHandler):
             state = self.request.get('state')
             experiencename = self.request.get('experiencename')
             description = self.request.get('description')
+            date = self.request.get('date')
             starttime = self.request.get('starttime')
             endtime = self.request.get('endtime')
             category = self.request.get('category')
             price = self.request.get('price')
-            socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
-            self.redirect('/experience/view')
+            socialdata.save_experience(city, state, experiencename, description, date, starttime, endtime, category, price, email)
+            # self.redirect('/experiences/view')
 
 class ManageExperienceHandler(webapp2.RequestHandler):
-    def post(self):
-        render_template(self, 'manage-experience.html', {})
+    def get(self):
+        values = get_template_parameters()
+        exp_key = self.request.get('id')
+        exp = socialdata.get_experience_by_id(exp_key)
+        values['city'] = exp.city
+        values['name'] = exp.experiencename
+        values['description'] = exp.description
+        values['starttime'] = exp.starttime
+        values['endtime'] = exp.endtime
+        values['category'] = exp.category
+        values['price'] = exp.price
+        values['email'] = exp.email
+        render_template(self, 'manage-experience.html', values)
 
 class ExperienceHandler(webapp2.RequestHandler):
     def get(self):
         render_template(self, 'experiences-page.html', {})
-        
+
 class ErrorHandler(webapp2.RequestHandler):
     def get(self):
         self.response.out.write("nothing mapped there (get).")

@@ -62,21 +62,21 @@
 	<option value="WY">Wyoming</option>
   <select>
       </p>
-<p>City: <input type='text', name='city'></input></p>
+<p>City: <input type='text', name='city' value="{{city}}"></input></p>
   
   <p>Experience Name: 
-      <input type="text", name="experiencename"><br><br></input>
+      <input type="text", name="experiencename" value="{{name}}"><br><br></input>
   </p>
   <p>Description:
-      <textarea id="description", name='description', rows="10", cols="36"></textarea></p>
+      <textarea id="description", name='description', rows="10", cols="36" value="{{description}}"></textarea></p>
   <p>Time: </p>
   <p>Start
-   <input type='time' name='starttime' id='time'></p>
+   <input type='time' name='starttime' id='time' value="{{starttime}}"></p>
  <p>End
-   <input type='time' name='endtime' id='time'></p>
+   <input type='time' name='endtime' id='time' value="{{endtime}}"></p>
 
   <p>Category: 
-  <select name='category'>
+  <select name='category' value="{{category}}"> 
   <option>Select Option</option>
   <option value="adventure">Adventure</option>
   <option value="relax">Relaxation</option>
@@ -84,7 +84,7 @@
  </select>
   </p>
   
-  <p> Estimated Price: <input type='text', name='price'></input></p>
+  <p> Estimated Price: <input type='text', name='price' value="{{price}}"></input></p>
 
 <button><p>Submit Experience</button></p>
 </form>
