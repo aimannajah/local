@@ -2,7 +2,6 @@ import datetime
 import logging
 import os
 import webapp2
-import jinja2
 from google.appengine.api import images
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -11,11 +10,6 @@ import socialdata
 from google.appengine.api import mail
 
 messages = []
-
-the_jinja_env = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
 
 
 def render_template(handler, file_name, template_values):
@@ -40,10 +34,10 @@ def get_template_parameters():
         values['login_url'] = users.create_login_url('/')
     return values
 
-def get_experience_name():
-    experience = users.show_experience()
+def get_experience_name(city):
+    experience = socialdata.show_experience(city)
     if experience:
-        return experience.name()
+        return experience.experiencename()
     else:
         return None
 
@@ -197,11 +191,18 @@ class ManageExperienceHandler(webapp2.RequestHandler):
         values['email'] = exp.email
         render_template(self, 'manage-experience.html', values)
 
-class ExperienceHandler(webapp2.RequestHandler):
-    def get(self):
-        render_template(self, 'experiences-page.html', {})
-        socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
-        render_template(self, 'create-experience.html', {})
+# class ExperienceHandler(webapp2.RequestHandler):
+#     def get(self):
+#         render_template(self, 'experiences-page.html', {})
+#         socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
+#         render_template(self, 'create-experience.html', {})
+
+# class ExperienceHandler(webapp2.RequestHandler):
+#     def get(self):
+#         render_template(self, 'experiences-page.html', {})
+#             socialdata.save_experience(city, state, experiencename, description, date, starttime, endtime, category, price)
+#             print(description)
+#         render_template(self, 'create-experience.html', {})
 
 class ErrorHandler(webapp2.RequestHandler):
     def get(self):
@@ -217,46 +218,48 @@ class SearchExperienceHandler(webapp2.RequestHandler):
 
 class ViewExperienceHandler(webapp2.RequestHandler):
     def post(self):
-        view_template = the_jinja_env.get_template('templates/view-experience.html')
         city = self.request.get('city')
         print(city)
         # city = 'Tucson'
         values = get_template_parameters()
         # values = self.request.get('city') dictionary
         values['experiences'] = socialdata.show_experience(city)
-        # values['experiences'] = [[0,1,2],[3,4,5]]
         print(values['experiences'])
-        # render_template(self, 'view-experience.html', values)
-        self.response.write(view_template.render(values))
-
+        render_template(self, 'view-experience.html', values)
 
 class RequestExperienceHandler(webapp2.RequestHandler):
-
     def get(self):
-        html = """
-        <html>
-            <body>
-                <form method="post" action="/">
-                    <input type="text" name="emailrequest">
-                    <input type="submit" value="Request">
-                    <a href="/request-experience">
-            </body>
-        </html>
-        """
-        # html
-
+        id = self.request.get('id')
+        experience = socialdata.retrieve_experience(id)
+        profile = socialdata.get_user_profile(get_user_email())
+        print(experience)
+        from_address = "admin@localll.appspotmail.com"
+        email = experience.email
+        body = "New Experience Request for " + experience.experiencename + " from: " + profile.firstname + " " + profile.lastname + ". Visit localll.appspot.com/searchexperience to accept or reject "  + profile.firstname + "'s request."
+        # body = """
+        # New Experience request for {{experience.experiencename}} from {{profile.name}} {{profile.lastname}} has been received. Visit localll.appspot.com/accept-reject to accept or reject {{profile.firstname}}'s requqest.
+        # """
+        subject = "Request from " + profile.firstname
+        mail.send_mail(from_address, email, subject, body)
+        self.redirect('/searchexperience')
         name = self.request.get("name")
         from_address = "yuh@local.appspotmail.com"
         subject = "New Request from: " + name
         body = "Request from " + get_user_email() + ": \n\n" + get_experience_name()
         user = users.get_current_user()
 
-        if user:
-            self.redirect("/new-request?experience=get_experience_id")
-            mail.send_mail(from_address, get_user_email(), body, subject)
+class AcceptRejectHandler(webapp2.RequestHandler):
+    def post(self):
+        pass
 
-        else:
-            self.redirect("/signuppage") ###
+
+        
+        # if experience.email:
+        #     self.redirect("/new-request?experience=get_experience_id")
+        #     mail.send_mail(from_address, experience.email, body, subject)
+        # else:
+        #     self.redirect("/signuppage") ###
+        # these lines should go right below the def get(Self) and then make sure 
 
 
 app = webapp2.WSGIApplication([
@@ -268,6 +271,8 @@ app = webapp2.WSGIApplication([
     ('/experiences/save', SaveExperienceHandler),
     ('/searchexperience', SearchExperienceHandler),
     ('/viewexperience', ViewExperienceHandler),
+    ('/requestexperience', RequestExperienceHandler),
+    ('/accept-reject', AcceptRejectHandler),
     ('/', MainHandler),
     # ('.*', ErrorHandler),
 ])
