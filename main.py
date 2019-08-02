@@ -180,6 +180,7 @@ class SaveExperienceHandler(webapp2.RequestHandler):
                 socialdata.update_experience(exp_id, city, state, experiencename, description, date, starttime, endtime, category, price, email)
             else:
                 socialdata.save_experience(city, state, experiencename, description, date, starttime, endtime, category, price, email)
+            print('help ##################')
             self.redirect('/manageexperience')
 
 class ManageExperienceHandler(webapp2.RequestHandler):
@@ -262,7 +263,7 @@ class RequestExperienceHandler(webapp2.RequestHandler):
         from_address = "admin@localll.appspotmail.com"
         email = experience.email
         body = "New Experience Request for " + experience.experiencename + " from: " + profile.firstname + " " + profile.lastname + ". Click localll.appspot.com/accept-reject?experienceid=" + str(id) + "&action=accept&useremail=" + useremail + \
-        " to accept or click localll.appspot.com/accept-reject?experienceid=" + str(id) + "&action=accept&useremail=" + useremail + " to reject "  + profile.firstname + "'s request."
+        " to accept or click localll.appspot.com/accept-reject?experienceid=" + str(id) + "&action=reject&useremail=" + useremail + " to reject "  + profile.firstname + "'s request."
         # body = """
         # New Experience request for {{experience.experiencename}} from {{profile.name}} {{profile.lastname}} has been received. Visit localll.appspot.com/accept-reject to accept or reject {{profile.firstname}}'s requqest.
         # """
@@ -281,20 +282,30 @@ class AcceptRejectHandler(webapp2.RequestHandler):
         action = self.request.get('action')
         useremail = self.request.get('useremail')
         profile = socialdata.get_user_profile(get_user_email())
+        experience = socialdata.retrieve_experience(id)
         print('hello')
         if action == 'accept':
             socialdata.request_experience(id, useremail)
             print('it gets here')
             self.redirect('/searchexperience')
-        # else:
-        #     from_address = "admin@localll.appspotmail.com"
-        #     name = profile.firstname
-        #     experiencename = experience.experiencename
-        #     email = get_user_email()
-        #     subject = "Request update!"
-        #     body = name + " has rejected your request to join " + experiencename
-        #     mail.send_mail(from_address, email, subject, body)
-        #     self.redirect('/searchexperience')
+            from_address = "admin@localll.appspotmail.com"
+            name = profile.firstname
+            experiencename = experience.experiencename
+            localemail = experience.email
+            email = get_user_email()
+            subject = "Request update!"
+            body = "congratulations!" + name + " has accepted your request to join " + experiencename + ". Contact your local host at " + localemail + " to ask questions and arrange the frist experience."
+            mail.send_mail(from_address, email, subject, body)
+            self.redirect('/searchexperience')
+        else:
+            from_address = "admin@localll.appspotmail.com"
+            name = profile.firstname
+            experiencename = experience.experiencename
+            email = get_user_email()
+            subject = "Request update!"
+            body = "Sorry. Unfortunately, " + name + " has rejected your request to join " + experiencename
+            mail.send_mail(from_address, email, subject, body)
+            self.redirect('/searchexperience')
 
 class FutureExperiencesHandler(webapp2.RequestHandler):
     def get(self):
@@ -308,63 +319,18 @@ class FutureExperiencesHandler(webapp2.RequestHandler):
         values['experiences'] = experiences
         render_template(self, 'futureexperiences.html', values)
 
+
+class AboutUsHandler(webapp2.RequestHandler):
+    def get(self):
+        values = get_template_parameters()
+        render_template(self, "aboutus.html", values)
+
         # id = self.request.get('experienceid')
         # action = self.request.get('action')        
         # experiences = ndb.KeyProperty(repeated=True)
         # exp = ndb.Key(urlsafe = exp.id)
         # profile = socialdata.get_user_profile(email)
         # print(experiences)
-
-
-        # if action is 'reject':
-        #     id = self.request.get('id')
-        #     experience = socialdata.retrieve_experience(id)
-        #     profile = socialdata.get_user_profile(get_user_email())
-        #     from_address = "admin@localll.appspotmail.com"
-        #     name = profile.firstname
-        #     experiencename = experience.experiencename
-        #     email = get_user_email()
-        #     subject = "Request update!"
-        #     body = name + " has rejected your request to join " + experiencename
-        #     mail.send_mail(from_address, email, subject, body)
-        #     self.redirect('/search')
-
-
-# class RejectExperienceHandler(webapp2.RequestHandler):
-#     def get(self):
-#         id = self.request.get('id')
-#         experience = socialdata.retrieve_experience(id)
-#         profile = socialdata.get_user_profile(get_user_email())
-#         from_address = "admin@localll.appspotmail.com"
-#         name = profile.firstname
-#         experiencename = experience.experiencename
-#         email = get_user_email()
-#         subject = "Request update!"
-#         body = name + " has rejected your request to join " + experiencename
-#         mail.send_mail(from_address, email, subject, body)
-#         self.redirect('/manageexperience')
-
-
-# class AcceptExperienceHandler(webapp2.RequestHandler):
-#     def get(self):
-#         id = self.request.get('id')
-#         experience = socialdata.retrieve_experience(id)
-#         profile = socialdata.get_user_profile(get_user_email())
-#         from_address = "admin@localll.appspotmail.com"
-#         name = profile.firstname
-#         experiencename = experience.experiencename
-#         email = get_user_email()
-#         subject = "Request update!"
-#         body = name + " has accepted your request to join " + experiencename
-#         mail.send_mail(from_address, email, subject, body)
-#         self.redirect('/manageexperience')
-
-        # if experience.email:
-        #     self.redirect("/new-request?experience=get_experience_id")
-        #     mail.send_mail(from_address, experience.email, body, subject)
-        # else:
-        #     self.redirect("/signuppage") ###
-        # these lines should go right below the def get(Self) and then make sure 
 
 
 app = webapp2.WSGIApplication([
@@ -382,6 +348,7 @@ app = webapp2.WSGIApplication([
     # ('/acceptexperience', AcceptExperienceHandler)
     ('/manageexperience', ManageExperienceHandler),
     ('/experiences/future', FutureExperiencesHandler),
+    ('/aboutus', AboutUsHandler),
     ('/', MainHandler),
     # ('.*', ErrorHandler),
 ])

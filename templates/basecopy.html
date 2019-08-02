@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    .local
+    {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+    .bckgrd
+    {
+        position: absolute;
+        filter: blur(1px);
+        filter: brightness(50%);
+        left: 0px;
+        top: 0px;
+        z-index: -1;
+    }
+body {margin:0;}
+
+.topnav {
+  overflow: hidden;
+  background-color: #0000ffff;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  border-bottom: 3px solid transparent;
+}
+
+.topnav a:hover {
+  border-bottom: 3px solid white;
+}
+
+.topnav a.active {
+  border-bottom: 3px solid white;
+}
+</style>
+</head>
+<body>
+<a class="local" href=''><img src='https://lh3.googleusercontent.com/bT_FotIsBNGkBehM3HGF28dAahtkczaquVxIrsBN2Dffw9KQyt-BzUKlLoNknVLTsZ0V_hxYpEtoZAdbrYhL0q_AOyyx0XQd-UxUGwjljouBnLNH1ZvyTaWJo6ePS3ZKJShlUCVA=w2400'/></a>
+<a class="bckgrd" href=''><img src='https://lh3.googleusercontent.com/ibqdszcQV3VQ3nWeBTpsLD1ejxMVWF34V1NVbPgBiJA9bUmlhHxQ0rF0TQ22j8tOXo2xsyCILaR-LeuvUUubwW6KIoUR55Fu_11Ht-JQvT1SZiMMHuEadp4xxQWoA7--QIIVlL1-=w2400'/></a>
+<div class="topnav">
+  <a class="active" href="/">Home</a>
+  <a href="/aboutus">About</a>
+  <div class="dropdown">
+    <button class="dropbtn">Profile</button>
+    <div class="dropdown-content">
+        <a href="/profile-view">View Profile</a>
+        <a href="/profile-edit">Edit Profile</a>
+    </div>
+</div>
+<div class="dropdown">
+    <button class="dropbtn">Experiences</button>
+    <div class="dropdown-content">
+        <a href="/searchexperience">Search Experiences</a>
+        <a href="/experiences/manage">Manage Experiences</a>
+        <a href="/experiences/create">Create Experience</a>
+        <a href="/experiences/future">Future Experiences</a>
+
+    </div>
+</div></div>
+
+
+</body>

@@ -104,7 +104,7 @@ def save_experience(city, state, experiencename, description, date, starttime, e
         p.price = price
     else:
         p = Experience(city = city, state = state, experiencename = experiencename, description = description, date = date, starttime = starttime, endtime = endtime, category = category, price = price, email = email)
-    print(p)
+    print('save experience')
     p.put()
 
 def retrieve_requests(email):

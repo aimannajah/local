@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-<<<<<<< HEAD
-{% for experience in experiences %}
-
 <strong class="d-inline-block mb-2 text-primary">{{experience.category}}</strong>
 <div class="card mb-3" style="max-width: 500px;">
   <div class="row no-gutters">
@@ -12,8 +9,7 @@
       
       <img src="smiley.gif" alt="Smiley face" height="42" width="42">>
       
-    
-=======
+
 <style>
     .boxed{
     border: 1px solid green ;
@@ -39,7 +35,6 @@ Experience Date:
 Experience Price:
     {{experience.price}} <br>
 <a href="/requestexperience?id={{experience.key.id}}" onclick="alert('Request to Join Experience has been Sent!')"> Join Experience! </a>
->>>>>>> 0890387f995013ca899a27554276b170669fa749
     </div>
     <div class="col-md-8">
       <div class="card-body">

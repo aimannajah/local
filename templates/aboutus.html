@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body{
+    width: 100%;
+    overflow-x: hidden;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.row{
+    position: relative;
+    left: 12.5%;
+}
+.column {
+  float: left;
+  width: 25%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  padding: 24px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+#we{
+    position: relative;
+    top: 30%;
+}
+
+
+.button:hover {
+  background-color: #555;
+}
+
+h2{
+    text-align: center;
+    font-size: 50;
+}
+
+</style>
+</head>
+<body>
+<div id="we">
+    <h2>Meet the Team</h2>
+    <br>
+
+    <div class="row">
+    <div class="column">
+        <div class="card">
+        <img src="/static/images/aiman.jpg" alt="Aiman" style="width:100%">
+        <div style='padding: 24px'>
+            <h2>Aiman Najah</h2>
+            <p class="title">Co-Founder</p>
+            <p>Aiman Najah is an incoming freshmen at Columbia University's Fu Foundation School of Engineering and Applied Science. As an aspiring Mechanical Engineering, Aiman hopes to use engineering and CS to find the crosspoint between renewable energy and machine algorithim. In his free time, Aiman likes to record shows for his podcast, hang out with friends, and watch movies!</p>
+            <a href = "mailto: najah.aiman1@gmail.com">Email Aiman!</a>
+        </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+        <img src="/static/images/baelul.jpg" alt="Baelul" style="width:100%">
+        <div style='padding: 24px'>
+            <h2>Baelul Haile</h2>
+            <p class="title">Co-Founder</p>
+            <p>Baelul is an incoming freshmen at NYU studying Computer Science. Attending a school in NYC, Baelul is most excited for exploring the city, meeting new people, interacting within a new envirionmemt, and growing as a perosn.</p>
+            <a href = "mailto: hailebaelul@gmail.com">Email Baelul!</a>
+        </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+        <img src="/static/images/chance.jpeg" alt="Chance" style="width:100%">
+        <div style='padding: 24px'>
+            <h2>Chance Onyiorah</h2>
+            <p class="title">Co-Founder</p>
+            <p>Chance is an incoming freshmen at the University of Florida. Pursuing Computer Science, Chance is excited to explore and dive deeper into the realm of machine learning and artificla intellgine. </p>
+            <a href = "mailto: chanceonyiorah@gmail.com">Email Chance!</a>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+
+{% endblock %}

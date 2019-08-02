@@ -5,34 +5,10 @@
     <link rel='icon' href='/CSSI/localicon.ico'>
 
 <style>
-    body{
-
-    }
-
     h1 {
         font-size: 80px;
     }
-    .local
-    {
-        position: relative;
-        top: 0;
-        left: 0;
-    }
-    .bckgrd
-    {
-        position: absolute;
-        filter: blur(1px);
-        filter: brightness(50%);
-        left: 0px;
-        top: 0px;
-        height: 18%;
-        width: 100%;
-        position: absolute;
-        top: 0%;
-        left: 0%;
-        background-color: rgba(0, 0, 0, .4);
-        z-index: -1;
-    }
+    
     #topmenu {
     position: absolute;
     top: 10px;
@@ -40,7 +16,7 @@
     font-size: 20px;
     }
     .dropbtn {
-    background-color: #C3C2C4;
+    background-color: #4CAF50;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -53,7 +29,7 @@
     .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #FFFFFF;
+    background-color: #f1f1f1;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -66,51 +42,54 @@
     }
     .dropdown-content a:hover {background-color: #ddd;}
     .dropdown:hover .dropdown-content {display: block;}
-    .dropdown:hover .dropbtn {background-color: #eeb786;}
+    .dropdown:hover .dropbtn {background-color: #3e8e41;}
     </style>
 
     </head>
         <body> 
-        <a class="local" href=''><img src='https://lh3.googleusercontent.com/bT_FotIsBNGkBehM3HGF28dAahtkczaquVxIrsBN2Dffw9KQyt-BzUKlLoNknVLTsZ0V_hxYpEtoZAdbrYhL0q_AOyyx0XQd-UxUGwjljouBnLNH1ZvyTaWJo6ePS3ZKJShlUCVA=w2400' /></a>
-        <a class="bckgrd" href=''></a>
+        <h1> Local </h1>
         <div class="container">
             <div id='topmenu'>
-               <a href='/'><button class='dropbtn'>Home</button></a>
-               <a href='/aboutus'><button class='dropbtn'>About Us</button></a>
+                <a href='/'>Home</a>
+                <a href='/aboutus'> About Us </a>
+                <a href='/searchexperience'>Search for an Experience</a>
                 {% if login_url %}
-                <a href='{{login_url}}'><button class='dropbtn'>Sign In</button></a> 
+                <a href='{{login_url}}'>Sign In</a>
                 {% else %}
-                <div class='dropdown'> <button href='/profile-view' class='dropbtn'>Profile</button>
+                <div class='dropdown'> <button class='dropbtn'>Profile</button>
                     <div class='dropdown-content'>
                         <a href='/profile-view'> View Profile</a>
+                        {% if viewprofile %}
                         <a href='/profile-edit'>Edit Profile</a>
+                        {% endif %}
                         </div>
                     </div>
-                <a href='/searchexperience'><button class='dropbtn'>Search Experiences</button></a>
-                <div class='dropdown'> <button href='/searchexperience' class='dropbtn'>Experiences</button>
-                    <div class='dropdown-content'>
-                        <a href='/experiences/manage'>Manage Experiences</a>
-                        <a href='/experiences/create'>Create an Experience</a>
-                        <a href='/experiences/future'>Future Experiences</a>
-                    </div>
+                {% if Local %}
+                <div class='dropdown'> <button class='dropbtn'>Experiences</button>
+                {% if experiences %}
+                <div class='dropdown-content'>
+                    <a href='/experiences/manage'>Manage Experiences</a>
+                    <a href='/experiences/create'>Create an Experience</a>
+                    <a href='/experiences/future'>Future Experiences</a>
                 </div>
+                {% endif %}
+                {% endif %}
                 {% if Traveller %}
                 <a href='experiences'>Experiences</a>
                 {% if experiences %}
                 <a href='/experiences/future'>Future Experiences</a>
                 {% endif %}
                 {% endif %}
-            <a href='{{logout_url}}'><button class='dropbtn'>Sign Out</button></a>
-
+                <a href='{{logout_url}}'>Sign Out</a> 
                 {% endif %}
                 <hr>
+            </div>
             {% if successmsg %}
             <div id='successmsg'>{{successmsg}}</div>
             {% endif %}
             {% if errormsg %}
             <div id='errormsg'>{{errormsg}}</div>
             {% endif %}
-            <br><br><br><br>
                 {% block content %}{% endblock %}
         </div>
     </body>
