@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<<<<<<< HEAD
 
 <strong class="d-inline-block mb-2 text-primary">{{experience.category}}</strong>
 <div class="card mb-3" style="max-width: 500px;">
@@ -47,9 +48,42 @@ Experience Price:
         <div class="card-text"><small class="text-muted">{{experience.date}}</small></div>
       </div>
     </div>
+=======
+{% for experience in experiences %}
+
+<center>
+<br><h3 class="jumbotron-heading">Experiences for {{experience.city}}, {{experience.state}}</h3><br>
+<div class='boxed'>
+<div class="card" style="width: 18rem;">
+  <div class="experience-body">
+    <h5 class="experience-name">{{experience.experiencename}}</h5>
+    <h6 class="experience-location mb-2 text-muted"><small>{{experience.city}}, {{experience.state}}</small></h6>
+    <p class="experience-date">Date: {{experience.date}}</p>
+    <p class="experience-time">Time: {{experience.starttime}} - {{experience.endtime}}</small></p>
+    <p class="experience-price">Price: {{experience.price}}</p>
+    <p class="experience-description">Description: {{experience.description}}</p>
+    <a href="/requestexperience?id={{experience.key.id}}" onclick="alert('Request to Join Experience has been Sent!')"> Request to Join Experience! </a>
+  <br><br>
+>>>>>>> 34ae5dd5d26c5fb8d74f97dec9053fcbf37141cd
   </div>
 </div>
-<a href="/requestexperience?id={{experience.key.id}}" > Join Experience! </a>
+</div>
+</center>
 
-{% endfor %} 
+<style>
+a:link, a:visited {
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color: red;
+}
+</style>
+
+{% endfor %}   
+
 {% endblock %}

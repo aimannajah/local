@@ -215,20 +215,7 @@ class EditExperienceHandler(webapp2.RequestHandler):
                 values['experience'] = experience
                 print(values['experience'])
             render_template(self, 'edit-experience.html', values)
-
-# class ExperienceHandler(webapp2.RequestHandler):
-#      def get(self):
-#          render_template(self, 'experiences-page.html', {})
-#          socialdata.save_experience(city, state, experiencename, description, starttime, endtime, category, price)
-#          render_template(self, 'create-experience.html', {})
-
-# class ExperienceHandler(webapp2.RequestHandler):
-#     def get(self):
-#         render_template(self, 'experiences-page.html', {})
-#             socialdata.save_experience(city, state, experiencename, description, date, starttime, endtime, category, price)
-#             print(description)
-#         render_template(self, 'create-experience.html', {})
-
+            
 class ErrorHandler(webapp2.RequestHandler):
     def get(self):
         self.response.out.write("nothing mapped there (get).")
@@ -242,14 +229,10 @@ class SearchExperienceHandler(webapp2.RequestHandler):
 
 
 class ViewExperienceHandler(webapp2.RequestHandler):
-    def post(self):
+    def get(self):
         city = self.request.get('city')
-        print(city)
-        # city = 'Tucson'
         values = get_template_parameters()
-        # values = self.request.get('city') dictionary
         values['experiences'] = socialdata.show_experience(city)
-        print(values['experiences'])
         render_template(self, 'view-experience.html', values)
 
 class RequestExperienceHandler(webapp2.RequestHandler):
@@ -332,6 +315,11 @@ class AboutUsHandler(webapp2.RequestHandler):
         # profile = socialdata.get_user_profile(email)
         # print(experiences)
 
+class AboutUsHandler(webapp2.RequestHandler):
+    def post(self):
+        values = get_template_parameters()
+        render_template(self, "about.html", values)
+
 
 app = webapp2.WSGIApplication([
     ('/profile-view', ProfileViewHandler),
@@ -344,6 +332,7 @@ app = webapp2.WSGIApplication([
     ('/requestexperience', RequestExperienceHandler),
     ('/editexperience', EditExperienceHandler),
     ('/accept-reject', AcceptRejectHandler),
+    ("/aboutus", AboutUsHandler),
     # ('/rejectexperience', RejectExperienceHandler),
     # ('/acceptexperience', AcceptExperienceHandler)
     ('/manageexperience', ManageExperienceHandler),
