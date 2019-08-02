@@ -6,31 +6,33 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.boothstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="" crossorigin="">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <style>
+    
     .local
 	{
 		position: relative;
 		top: 0;
 		left: 0;
 	}
-    .bckgrd
+    body
     {
-        position: absolute;
-        filter: blur(1px);
-        filter: brightness(50%);
-        left: 0px;
-        top: 0px;
-        z-index: -1;
+        background-image: url('https://lh3.googleusercontent.com/GbIv71XIdnh5uySurjsVQOVSm0xUaDj4i1o6QdD-J3aRA1hmxLYVdTvL53qi2IjvXZMefFrPdX_oyI6Ob-CiBLvnUck2P2kdAcj3C0Xi98ItyKoiYGm_uTlhKGfia5-3Kxq9nD0F=w2400');
+        padding: 3%;
+        margin-top: 3%;
+        margin-bottom: 50%;
+        border-radius: 3rem;
     }
-
-	div.sticky{
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
+    div#nav
+    {
+    display: flex;
+    flex-direction: column; // cannot use `inherit` to get the `.navbar`s value
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
     }
-
 </style>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -38,15 +40,53 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-   <body>
+    <body>
     <h1>
         <div class="container-fluid">
         <a class="local" href=''><img src='https://lh3.googleusercontent.com/bT_FotIsBNGkBehM3HGF28dAahtkczaquVxIrsBN2Dffw9KQyt-BzUKlLoNknVLTsZ0V_hxYpEtoZAdbrYhL0q_AOyyx0XQd-UxUGwjljouBnLNH1ZvyTaWJo6ePS3ZKJShlUCVA=w2400' /></a>
-        <a class="bckgrd" href='https://photos.google.com/share/AF1QipP3nP9ZL1706C_eMWvTzgxT1tBtw1efJv9r9kbuKe3hEX-Ac_0MS5q_yfMAQ0Fc7w?key=bXlxR2lPUThIZGdfbEhwYVJOZXRCMG9DSHFVNE93&source=ctrlq.org'><img src='https://lh3.googleusercontent.com/ibqdszcQV3VQ3nWeBTpsLD1ejxMVWF34V1NVbPgBiJA9bUmlhHxQ0rF0TQ22j8tOXo2xsyCILaR-LeuvUUubwW6KIoUR55Fu_11Ht-JQvT1SZiMMHuEadp4xxQWoA7--QIIVlL1-=w2400' /></a>
         </div>
+    <div id="nav">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse main-menu-item justify-content-center collapse" id="navbarSupportedContent" style="">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="aboutus.html">About</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account
+                        </a>  
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="services.html">Sign Out</a>
+                        <a class="dropdown-item" href="dep.html">View Profile</a>
+                        <a class="dropdown-item" href="elements.html">Edit Profile</a>
+                    </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Experiences
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
+                    <a class="dropdown-item" href="blog.html">Manage</a>
+                    <a class="dropdown-item" href="single-blog.html">Create</a>
+                    <a class="dropdown-item" href="single-blog.html">Future</a>
+                    </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
     </h1>
-<div class="sticky">
-<nav class="navbar navbar-inverse">
+   
+<!-- <nav class="navbar navbar-inverse">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"></a>
     </div>
@@ -116,13 +156,10 @@
       <li class="active"><a href="#">
           
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-<<<<<<< HEAD
             <form class="form-inline mr-auto">
                 <div class="md-form my-0">
                     <input class="form-control" type="text" placeholder="Search" aria-label="Search">
                     <i class="fas fa-search text-white ml-3" aria-hidden="true"></i>
-=======
     </head>
         <body> 
         <h1> Local </h1>
@@ -141,6 +178,7 @@
                         {% endif %}
                         </div>
                     </div>
+
                 {% if Local %}
                 <div class='dropdown'> <button class='dropbtn'>Experiences</button>
                 {% if experiences %}
@@ -148,19 +186,22 @@
                     <a href='/manageexperience'>Manage Experiences</a>
                     <a href='/experiences/create'>Create an Experience</a>
                     <a href='/experiences/future'>Future Experiences</a>
->>>>>>> 0890387f995013ca899a27554276b170669fa749
                 </div>
+                {% endif %}
+                {% endif %}
+                {% endif %}
             </form>
 
         </div>
         </a></li>
         </ul>
-    </nav>
-</div>
+    </nav> -->
+
 
 <div class="container">
 
 {% block content %}{% endblock %}
 </div>
 </body>
+
 </html>
